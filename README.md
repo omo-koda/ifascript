@@ -1,6 +1,6 @@
-![Version](https://img.shields.io/badge/version-v1.0-blue)
+![Version](https://img.shields.io/badge/version-v0.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Layer](https://img.shields.io/badge/layer-Language-lightgrey)
+![Layer](https://img.shields.io/badge/layer-VM-purple)
 # IfáScript Ω — Ọ̀rọ̀-Ọ̀run's Child
 
 **Divination as Divine Computation**
