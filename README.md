@@ -5,6 +5,8 @@
 
 **Divination as Divine Computation**
 
+IfáScript is the entropy and divination engine of the Technosis ecosystem — an open-standard language for probabilistic reasoning, ritual computation, and Ifá-inspired decision trees.
+
 - 256 Odu Ifá → 256 opcodes
 - Cowrie casts → entropy oracle
 - Ebo → ethical exception handling
