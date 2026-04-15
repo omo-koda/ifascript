@@ -51,7 +51,7 @@ impl OduOp {
             }
             OduOp::HaltIfOne => if vm.stack.last() == Some(&1) {
                 println!("Àṣẹ");
-                std::process::exit(0);
+                vm.halted = true;
             }
             OduOp::CastCowries => {
                 let cast = vm.oracle.cast_cowries();
@@ -96,6 +96,7 @@ pub struct IfaVM {
     pub stack: Stack,
     pub oracle: CowrieOracle,
     pub ebo_history: EboHistory,
+    pub halted: bool,
 }
 
 impl IfaVM {
@@ -104,6 +105,7 @@ impl IfaVM {
             stack: Vec::new(),
             oracle: CowrieOracle::new("Default ritual intent"),
             ebo_history: EboHistory::new(),
+            halted: false,
         }
     }
 
@@ -112,12 +114,14 @@ impl IfaVM {
             stack: Vec::new(),
             oracle: CowrieOracle::new(intent),
             ebo_history: EboHistory::new(),
+            halted: false,
         }
     }
 
     pub fn execute(&mut self, program: Vec<&str>) {
         use crate::odu::ODU_TABLE;
         for odu_name in program {
+            if self.halted { break; }
             if let Some(op) = ODU_TABLE.get(odu_name) {
                 op.clone().execute(self);
             }

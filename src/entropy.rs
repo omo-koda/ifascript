@@ -26,7 +26,6 @@ pub struct CowrieOracle {
 impl CowrieOracle {
     pub fn new(ritual_intent: &str) -> Self {
         let seed: [u8; 32] = Sha256::digest(ritual_intent.as_bytes()).into();
-        let fallback = ChaCha20Rng::from_seed(seed);
         let client = Client::new();
         
         Self {

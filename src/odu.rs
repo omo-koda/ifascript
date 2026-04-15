@@ -28,6 +28,9 @@ lazy_static::lazy_static! {
         // Ọ̀túúrúpọ̀n — Seal
         m.insert("Ọ̀túúrúpọ̀n", OduOp::HaltIfOne);
         
+        // Special Instructions
+        m.insert("CastCowries", OduOp::CastCowries);
+        
         // ... expand to 256
         
         m

@@ -18,5 +18,5 @@ fn test_add() {
 fn test_swap() {
     let mut vm = IfaVM::new();
     vm.execute(vec!["Èjì Ogbè", "Ọ̀bàrà", "Ọ̀dí Méjì"]);
-    assert_eq!(vm.stack, vec![1, 0]);
+    assert_eq!(vm.stack, vec![0, 1]);
 }
