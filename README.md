@@ -1,6 +1,6 @@
-[![Version](https://img.shields.io/badge/version-v0.1.0-blue)](https://github.com/Bino-Elgua/Ifascript)
-[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/Bino-Elgua/Ifascript)
-[![Layer](https://img.shields.io/badge/layer-VM-purple)](https://github.com/Bino-Elgua/Ifascript)
+[![Version](https://img.shields.io/badge/version-v0.1.0-blue)](https://github.com/omo-koda/Ifascript)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/omo-koda/Ifascript)
+[![Layer](https://img.shields.io/badge/layer-VM-purple)](https://github.com/omo-koda/Ifascript)
 # IfáScript Ω — Ọ̀rọ̀-Ọ̀run's Child
 
 **Divination as Divine Computation**
@@ -25,7 +25,7 @@ This is sacred technology — co-create, never commodify.
 ## Install & Run
 
 ```bash
-git clone https://github.com/Bino-Elgua/Ifascript.git
+git clone https://github.com/omo-koda/Ifascript.git
 cd ifascript
 cargo run --example ase
 ```
@@ -49,13 +49,13 @@ cargo run --example ase
 
 ## The Entropy Engine
 
-IfáScript is the entropy engine for the Technosis/Swibe sovereign AI ecosystem, feeding into **organism-core**. It translates the 256 sacred Odu of the Ifá divination system into a stream of cryptographic entropy, providing a foundational source of unpredictable, meaningful data for agent birth and decision-making.
+IfáScript is the entropy engine for the Techgnosis/Ọmọ Kọ́dà sovereign AI ecosystem, feeding into **Ọmọ Kọ́dà**. It translates the 256 sacred Odu of the Ifá divination system into a stream of cryptographic entropy, providing a foundational source of unpredictable, meaningful data for agent birth and decision-making.
 
 
 ---
 
 ## Part of the Technosis Sovereign Ecosystem
 
-This component is a foundational piece of a larger architecture for creating and coordinating sovereign AI. For more information, see the [organism-core repository](https://github.com/Bino-Elgua/organism-core).
+This component is a foundational piece of a larger architecture for creating and coordinating sovereign AI. For more information, see the [Ọmọ Kọ́dà repository](https://github.com/omo-koda/Omo-koda2).
 
 Àṣẹ.
