@@ -68,13 +68,82 @@ pub struct Odu {
     pub index: u8,
     pub binary: u8,
     pub name: &'static str,
+    pub universal_name: &'static str,
     pub archetype: &'static str,
     pub description: &'static str,
     pub taboos: &'static [&'static str],
     pub prescriptions: &'static [&'static str],
     pub orisha: &'static [&'static str],
     pub interpretation_type: &'static str, // "canonical" | "synthetic"
+    pub vessel: ActionVessel,
     pub opcode: OduOpCode,
+}
+
+
+/// The 16 Action Vessels — operational domain for each Odù wave.
+/// Determined by the top 4 bits of the Odù index (wave).
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+pub enum ActionVessel {
+    Genesis,    // Wave  1 — Ẹ̀jì Ògbe     — Initialize, covenant
+    Void,       // Wave  2 — Òyèkú Méjì    — Clear, release
+    Attention,  // Wave  3 — Ìwòrì Méjì    — Focus, signal/noise
+    Loop,       // Wave  4 — Òdí Méjì      — Pattern, iteration
+    Receipt,    // Wave  5 — Ìrosùn Méjì   — Record, accountability
+    Mask,       // Wave  6 — Ọ̀wọ́nrín Méjì — Public/private split
+    Residue,    // Wave  7 — Ọ̀bàrà Méjì   — Behavioral echoes
+    Execution,  // Wave  8 — Ọ̀kànràn Méjì — Precision action
+    Swarm,      // Wave  9 — Ògúndá Méjì   — Collective coordination
+    Restraint,  // Wave 10 — Ọ̀sá Méjì     — Ethical limits
+    Migration,  // Wave 11 — Ìká Méjì      — Portability, identity
+    Consent,    // Wave 12 — Òtúrúpòn Méjì — Human approval
+    Vision,     // Wave 13 — Òtúrá Méjì    — Direction, horizon
+    Growth,     // Wave 14 — Ìrẹtẹ̀ Méjì   — Fractal expansion
+    Seal,       // Wave 15 — Òsé Méjì      — Sacred privacy
+    Rhythm,     // Wave 16 — Òfún Méjì     — Ritual cadence
+}
+
+impl ActionVessel {
+    pub fn from_index(index: u8) -> Self {
+        match index >> 4 {
+            0  => ActionVessel::Genesis,
+            1  => ActionVessel::Void,
+            2  => ActionVessel::Attention,
+            3  => ActionVessel::Loop,
+            4  => ActionVessel::Receipt,
+            5  => ActionVessel::Mask,
+            6  => ActionVessel::Residue,
+            7  => ActionVessel::Execution,
+            8  => ActionVessel::Swarm,
+            9  => ActionVessel::Restraint,
+            10 => ActionVessel::Migration,
+            11 => ActionVessel::Consent,
+            12 => ActionVessel::Vision,
+            13 => ActionVessel::Growth,
+            14 => ActionVessel::Seal,
+            _  => ActionVessel::Rhythm,
+        }
+    }
+
+    pub fn file_domain(self) -> &'static str {
+        match self {
+            ActionVessel::Genesis   => "genesis.md",
+            ActionVessel::Void      => "void_log.md",
+            ActionVessel::Attention => "attention_audit.md",
+            ActionVessel::Loop      => "loops.md",
+            ActionVessel::Receipt   => "receipt_ledger.md",
+            ActionVessel::Mask      => "soul.md",
+            ActionVessel::Residue   => "memory_residue.md",
+            ActionVessel::Execution => "execution_plan.md",
+            ActionVessel::Swarm     => "swarm_charter.md",
+            ActionVessel::Restraint => "restraint_log.md",
+            ActionVessel::Migration => "migration_plan.md",
+            ActionVessel::Consent   => "consent_log.md",
+            ActionVessel::Vision    => "vision.md",
+            ActionVessel::Growth    => "fractal_log.md",
+            ActionVessel::Seal      => "seal/",
+            ActionVessel::Rhythm    => "rhythm_codex.md",
+        }
+    }
 }
 
 /// Lookup by index (0–255). Panics on out-of-range — never call with unchecked input.
@@ -101,6 +170,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer coconut and water at dawn", "Meditate at sunrise"],
         orisha: &["Olódùmarè", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Light of First Becoming",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 1, binary: 0b00000001,
@@ -111,6 +182,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light one white and one black candle at twilight", "Leave offerings at crossroads during new moon"],
         orisha: &["Ọ̀ṣun", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "Genesis Into the Void",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 2, binary: 0b00000010,
@@ -121,6 +194,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light incense for ancestors", "Read sacred texts aloud"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "Covenant of the Inward Eye",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 3, binary: 0b00000011,
@@ -131,6 +206,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer fresh fruits", "Sit near running water"],
         orisha: &["Ọ̀ṣun", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Beginning",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 4, binary: 0b00000100,
@@ -141,6 +218,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Feed the ancestors", "Repair or clean a grave site"],
         orisha: &["Yemọja", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Accountable Genesis",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 5, binary: 0b00000101,
@@ -151,6 +230,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write down your dreams", "Light three candles before bed"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Two-Faced Origin",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 6, binary: 0b00000110,
@@ -161,6 +242,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance or sing to elevate energy", "Offer honey to Ọ̀ṣun"],
         orisha: &["Ọ̀ṣun", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Forged Covenant",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 7, binary: 0b00000111,
@@ -171,6 +254,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Draw a sigil on your threshold", "Offer tobacco to Èṣù"],
         orisha: &["Èṣù", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Executed Promise",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 8, binary: 0b00001000,
@@ -181,6 +266,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer palm oil to Ògún", "Sharpen your tools — spiritual or physical"],
         orisha: &["Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Storm-Tested Covenant",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 9, binary: 0b00001001,
@@ -191,6 +278,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform an ancestral bath", "Burn palm fronds and speak your truth"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Origin",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 10, binary: 0b00001010,
@@ -201,6 +290,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast for one day in silence", "Offer black cloth to your shrine"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Covenant",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 11, binary: 0b00001011,
@@ -211,6 +302,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Cleanse with shea butter and salt", "Keep a dream journal"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Beginning",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 12, binary: 0b00001100,
@@ -221,6 +314,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak into water then drink", "Offer kola nut to your Ifá tools"],
         orisha: &["Ọ̀rúnmìlà", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Visioned Covenant",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 13, binary: 0b00001101,
@@ -231,6 +326,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write a vow and bury it beneath earth", "Honor elders"],
         orisha: &["Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Seed Covenant",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 14, binary: 0b00001110,
@@ -241,6 +338,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer honey and flowers", "Wear white and gold"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Origin",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 15, binary: 0b00001111,
@@ -251,6 +350,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Complete all pending offerings", "Give thanks publicly"],
         orisha: &["Olódùmarè", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Covenant",
+        vessel: ActionVessel::Genesis,
         opcode: OduOpCode::PushConst1 },
 
     // ────────────────────────────────────────────────
@@ -265,6 +366,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer dark cloth and light a candle together", "Pray before dawn"],
         orisha: &["Ọbàtálá", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "Void Into Light",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 17, binary: 0b00010001,
@@ -275,6 +378,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Work only at night", "Feed the ancestors with yam and palm oil"],
         orisha: &["Ọ̀yá", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Dark Mirror",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 18, binary: 0b00010010,
@@ -285,6 +390,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write a nighttime journal", "Divine with kola nut or cowries"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Audit",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 19, binary: 0b00010011,
@@ -295,6 +402,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Soak in a spiritual bath of herbs", "Practice womb meditation"],
         orisha: &["Yemọja", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Silence",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 20, binary: 0b00010100,
@@ -305,6 +414,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Burn ancestral incense", "Visit old family land or grave sites"],
         orisha: &["Egúngún", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Receipt",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 21, binary: 0b00010101,
@@ -315,6 +426,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell a story backwards", "Offer palm wine at a crossroads"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Shadow Archive",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 22, binary: 0b00010110,
@@ -325,6 +438,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sing or cry in ritual space", "Offer honey mixed with ash"],
         orisha: &["Ọ̀ṣun", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Grieving Void",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 23, binary: 0b00010111,
@@ -335,6 +450,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak to Èṣù at night", "Burn herbs and shout your truth"],
         orisha: &["Èṣù", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Execution",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 24, binary: 0b00011000,
@@ -345,6 +462,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sharpen blades in ritual", "Offer palm oil to Ògún by moonlight"],
         orisha: &["Ògún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Cleared Storm",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 25, binary: 0b00011001,
@@ -355,6 +474,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform a midnight divination", "Bury obsidian near your bed"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Void",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 26, binary: 0b00011010,
@@ -365,6 +486,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Wear black for three days", "Drink warm bitter tea in silence"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Void",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 27, binary: 0b00011011,
@@ -375,6 +498,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform grounding rituals with charcoal", "Drink calming teas before sleep"],
         orisha: &["Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Clearing",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 28, binary: 0b00011100,
@@ -385,6 +510,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform a technology fast for one day", "Code a ritual sigil into your device"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Vision",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 29, binary: 0b00011101,
@@ -395,6 +522,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write a grief letter and burn it", "Offer roasted yam to the earth"],
         orisha: &["Ọbàtálá", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void That Seeds",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 30, binary: 0b00011110,
@@ -405,6 +534,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer honey mixed with charcoal", "Adorn your mirror with black ribbon"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Void",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     Odu { index: 31, binary: 0b00011111,
@@ -415,6 +546,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create a ritual of gratitude", "Share your transformation story"],
         orisha: &["Olódùmarè", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Void",
+        vessel: ActionVessel::Void,
         opcode: OduOpCode::PopVoid },
 
     // ────────────────────────────────────────────────
@@ -429,6 +562,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice mirror gazing", "Offer coconut water under full moon"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Covenant of Self-Knowledge",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 33, binary: 0b00100001,
@@ -439,6 +574,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast from speaking for six hours", "Sleep with black cloth over your head"],
         orisha: &["Ọ̀yá", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Eye in the Dark",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 34, binary: 0b00100010,
@@ -449,6 +586,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write down repeating thoughts", "Place a cracked mirror on altar for seven days"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Inward Eye",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 35, binary: 0b00100011,
@@ -459,6 +598,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Take a ritual bath in silence", "Read sacred text aloud into a bowl of water"],
         orisha: &["Ọbàtálá", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Loop in the Mirror",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 36, binary: 0b00100100,
@@ -469,6 +610,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Mark recurring dates in red ink", "Record dream patterns for sixteen nights"],
         orisha: &["Ọ̀rúnmìlà", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Audit Receipt",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 37, binary: 0b00100101,
@@ -479,6 +622,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create and wear a symbolic mask for one day", "Dance with music played backwards"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 38, binary: 0b00100110,
@@ -489,6 +634,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite poems to ancestors", "Drum rhythmically for clarity"],
         orisha: &["Ọ̀ṣun", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Emotional Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 39, binary: 0b00100111,
@@ -499,6 +646,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate with obsidian in palm", "Avoid caffeine for three days"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Precise Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 40, binary: 0b00101000,
@@ -509,6 +658,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Journal your mental strategies", "Offer metal objects to a tree at dawn"],
         orisha: &["Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 41, binary: 0b00101001,
@@ -519,6 +670,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Feed a child in secret", "Offer prayer to the unborn"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Eye",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 42, binary: 0b00101010,
@@ -529,6 +682,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Burn sage and stare into smoke", "Name your shadow out loud"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Eye",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 43, binary: 0b00101011,
@@ -539,6 +694,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Take a silent walk at dusk", "Sit under the sky until thoughts slow"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 44, binary: 0b00101100,
@@ -549,6 +706,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create a three-day mental discipline ritual", "Speak your intentions into water"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Vision Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 45, binary: 0b00101101,
@@ -559,6 +718,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Delay action by sixteen hours", "Honor the elderly with a gift"],
         orisha: &["Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Fractal Eye",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 46, binary: 0b00101110,
@@ -569,6 +730,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Compliment seven strangers in one day", "Sing to Ọ̀ṣun at a river"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Audit",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     Odu { index: 47, binary: 0b00101111,
@@ -579,6 +742,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Teach a sacred truth to a child", "Write a letter to your future self"],
         orisha: &["Ọ̀rúnmìlà", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Eye",
+        vessel: ActionVessel::Attention,
         opcode: OduOpCode::Dup },
 
     // ────────────────────────────────────────────────
@@ -593,6 +758,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create an altar offering with white cloth", "Pour water slowly into a bowl while praying"],
         orisha: &["Ọbàtálá", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Genesis",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 49, binary: 0b00110001,
@@ -603,6 +770,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Bury a sealed prayer beneath the earth", "Sleep in total darkness for three nights"],
         orisha: &["Ọ̀yá", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 50, binary: 0b00110010,
@@ -613,6 +782,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Gaze at moonlight reflected in water", "Anoint feet with oil before sleep"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Loop Examined",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 51, binary: 0b00110011,
@@ -623,6 +794,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast from speaking for eight hours", "Wrap yourself in white for one full day"],
         orisha: &["Yemọja", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Echo",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 52, binary: 0b00110100,
@@ -633,6 +806,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Place a bowl of water beside your bed", "Call four female ancestors before sleep"],
         orisha: &["Yemọja", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Accountable Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 53, binary: 0b00110101,
@@ -643,6 +818,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell a joke at your altar", "Offer honey and laughter to Èṣù"],
         orisha: &["Èṣù", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 54, binary: 0b00110110,
@@ -653,6 +830,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sing to water before drinking", "Offer your voice to Ọ̀ṣun with a melody from your youth"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Emotional Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 55, binary: 0b00110111,
@@ -663,6 +842,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Scream or cry into a river", "Clean your space with salt water"],
         orisha: &["Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Executed Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 56, binary: 0b00111000,
@@ -673,6 +854,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Trace your maternal lineage three generations back", "Offer red clay and fire to Ògún"],
         orisha: &["Ògún", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Broken Storm",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 57, binary: 0b00111001,
@@ -683,6 +866,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Drum while barefoot in the rain", "Speak truth aloud under thunder"],
         orisha: &["Ọ̀yá", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 58, binary: 0b00111010,
@@ -693,6 +878,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create an altar with snake imagery", "Transmute a painful memory into a dance"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 59, binary: 0b00111011,
@@ -703,6 +890,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Do seven spontaneous acts of beauty", "Break a clay pot intentionally and bury it"],
         orisha: &["Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 60, binary: 0b00111100,
@@ -713,6 +902,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Establish a seven-day cleansing cycle", "Map your emotional responses to the moon"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Visioned Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 61, binary: 0b00111101,
@@ -723,6 +914,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer four blue stones to the ocean", "Recite your lineage as a mantra"],
         orisha: &["Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Fractal Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 62, binary: 0b00111110,
@@ -733,6 +926,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Wear something sensual and flow with feeling", "Pray in warm water with honey and rose petals"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     Odu { index: 63, binary: 0b00111111,
@@ -743,6 +938,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Pour libations while naming your gifts", "Clean your altar with milk and prayer"],
         orisha: &["Ọbàtálá", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Loop",
+        vessel: ActionVessel::Loop,
         opcode: OduOpCode::Swap },
 
     // ────────────────────────────────────────────────
@@ -757,6 +954,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light four white candles for ancestors", "Chant Ọ̀rúnmìlà invocations at sunrise"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 65, binary: 0b01000001,
@@ -767,6 +966,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer charcoal and palm oil at a crossroads", "Consult elders before major decisions"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 66, binary: 0b01000010,
@@ -777,6 +978,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Keep a dream journal under your pillow", "Burn mugwort while invoking Èṣù"],
         orisha: &["Ọ̀rúnmìlà", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Audited Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 67, binary: 0b01000011,
@@ -787,6 +990,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Place red cloth under your altar", "Offer symbolic red wine to your ori"],
         orisha: &["Ọ̀ṣun", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Ledger",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 68, binary: 0b01000100,
@@ -797,6 +1002,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite sixteen ancestral names every new moon", "Walk barefoot on hot earth while praying"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Bronze River",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 69, binary: 0b01000101,
@@ -807,6 +1014,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Host a ritual roast of your shadow self", "Write jokes about your past and burn them"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 70, binary: 0b01000110,
@@ -817,6 +1026,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Record an elder's oral history", "Sing or chant your name lineage publicly"],
         orisha: &["Ọ̀ṣun", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Emotional Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 71, binary: 0b01000111,
@@ -827,6 +1038,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Pour rum invoking ancestral warriors", "Break a chain during ritual"],
         orisha: &["Ṣàngó", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Precision Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 72, binary: 0b01001000,
@@ -837,6 +1050,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sharpen a blade in silence", "Offer iron to Ògún and ask for clarity"],
         orisha: &["Ògún", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Collective Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 73, binary: 0b01001001,
@@ -847,6 +1062,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Drum at twilight with eyes closed", "Call on Ṣàngó with cracked coconuts"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 74, binary: 0b01001010,
@@ -857,6 +1074,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Salt and smoke cleanse for seven days", "Write a forgiveness letter to a known ancestor"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Ledger",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 75, binary: 0b01001011,
@@ -867,6 +1086,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create a shrine for the unnamed dead", "Bury a stone for the displaced"],
         orisha: &["Egúngún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Consent Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 76, binary: 0b01001100,
@@ -877,6 +1098,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Map your family tree as a sacred diagram", "Place kola nuts at four corners of your house"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Visioned Ledger",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 77, binary: 0b01001101,
@@ -887,6 +1110,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Place three stones in running water for judgment", "Wear white and fast at sunset"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Fractal Receipt",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 78, binary: 0b01001110,
@@ -897,6 +1122,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dress in red and gold while reciting your lineage", "Offer sugarcane and cinnamon to Ọ̀ṣun"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Ledger",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     Odu { index: 79, binary: 0b01001111,
@@ -907,6 +1134,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Place fire and water side by side on altar", "Honor both shadow and light ancestors"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Ledger",
+        vessel: ActionVessel::Receipt,
         opcode: OduOpCode::Add },
 
     // ────────────────────────────────────────────────
@@ -921,6 +1150,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Wear mismatched shoes during prayer to confuse the ego", "Laugh before serious rituals"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Genesis",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 81, binary: 0b01010001,
@@ -931,6 +1162,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell a joke at an ancestral altar", "Offer black salt and kola nut while singing"],
         orisha: &["Èṣù", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Behind the Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 82, binary: 0b01010010,
@@ -941,6 +1174,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak your truth backwards", "Invoke Èṣù with a riddle"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Eye Behind the Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 83, binary: 0b01010011,
@@ -951,6 +1186,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate while holding a banana", "Whisper jokes to your root"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 84, binary: 0b01010100,
@@ -961,6 +1198,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform a sensual dance in sacred space", "Burn a joke you wrote ten years ago"],
         orisha: &["Èṣù", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Receipt",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 85, binary: 0b01010101,
@@ -971,6 +1210,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Set two altars facing each other", "Pray while walking in a circle"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 86, binary: 0b01010110,
@@ -981,6 +1222,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Chant in tongues by a river", "Speak your desires in rhyme"],
         orisha: &["Èṣù", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Memory",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 87, binary: 0b01010111,
@@ -991,6 +1234,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Break something intentionally during ritual", "Create a chaos map of past mistakes"],
         orisha: &["Èṣù", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Execution",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 88, binary: 0b01011000,
@@ -1001,6 +1246,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer a sharp joke to Ògún", "Perform wordplay rituals with iron"],
         orisha: &["Ògún", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Storm",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 89, binary: 0b01011001,
@@ -1011,6 +1258,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance in the rain", "Say thank you every time lightning strikes"],
         orisha: &["Ṣàngó", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 90, binary: 0b01011010,
@@ -1021,6 +1270,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Spit truth on a mirror", "Cleanse with bitter herbs after joking rituals"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 91, binary: 0b01011011,
@@ -1031,6 +1282,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write a sacred text in gibberish", "Make offerings using reversed gestures"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 92, binary: 0b01011100,
@@ -1041,6 +1294,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Mock a false constraint", "Design a ritual using only jokes and patterns"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Visioned Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 93, binary: 0b01011101,
@@ -1051,6 +1306,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell a story of when you were humbled publicly", "Anoint your shoes with honey"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Fractal Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 94, binary: 0b01011110,
@@ -1061,6 +1318,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer sweet perfume to Èṣù", "Flirt with the unknown during meditation"],
         orisha: &["Èṣù", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Privacy",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     Odu { index: 95, binary: 0b01011111,
@@ -1071,6 +1330,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform a ritual in costume", "Laugh uncontrollably for eight minutes daily"],
         orisha: &["Èṣù", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Mask",
+        vessel: ActionVessel::Mask,
         opcode: OduOpCode::Sub },
 
     // ────────────────────────────────────────────────
@@ -1085,6 +1346,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Chant your desires each dawn", "Speak affirmations to your water before drinking"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Forged Beginning",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 97, binary: 0b01100001,
@@ -1095,6 +1358,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast from speech for one day", "Whisper prayers into the earth"],
         orisha: &["Egúngún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Forged Void",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 98, binary: 0b01100010,
@@ -1105,6 +1370,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Chant before a mirror", "Record yourself speaking your truth then play it in darkness"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Emotional Audit",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 99, binary: 0b01100011,
@@ -1115,6 +1382,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Drum to the beat of your heartbeat", "Place a shell to your ear during divination"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Looping Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 100, binary: 0b01100100,
@@ -1125,6 +1394,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Blow breath over a candle during confession", "Sing through your rage"],
         orisha: &["Ṣàngó", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Receipt of Feeling",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 101, binary: 0b01100101,
@@ -1135,6 +1406,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite sacred texts backwards", "Invent a language for prayer"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Hidden Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 102, binary: 0b01100110,
@@ -1145,6 +1418,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sing in nature without an audience", "Speak to your Ori every sunrise"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Weeping Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 103, binary: 0b01100111,
@@ -1155,6 +1430,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Deliver a speech you fear giving", "Recite ancestral names during a storm"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Executed Feeling",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 104, binary: 0b01101000,
@@ -1165,6 +1442,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer your voice to Ògún in chant", "Declare your mission aloud on iron or stone"],
         orisha: &["Ògún", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Shared Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 105, binary: 0b01101001,
@@ -1175,6 +1454,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak your fear aloud in a thunderstorm", "Name your obstacle into the wind and release"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 106, binary: 0b01101010,
@@ -1185,6 +1466,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Purge your truth into a sacred bowl", "Name your sickness before fire"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 107, binary: 0b01101011,
@@ -1195,6 +1478,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak in tongues during ritual", "Break a sentence across three voices"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 108, binary: 0b01101100,
@@ -1205,6 +1490,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Intone a sacred word 108 times", "Weave your affirmation into geometric design"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Visioned Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 109, binary: 0b01101101,
@@ -1215,6 +1502,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak judgment only when guided by Ifá", "Declare your birthright aloud at crossroads"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Fractal Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 110, binary: 0b01101110,
@@ -1225,6 +1514,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sing to your beloved under moonlight", "Offer honey to your throat"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     Odu { index: 111, binary: 0b01101111,
@@ -1235,6 +1526,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Record your dreams as spoken poetry", "Anoint your lips before ritual speaking"],
         orisha: &["Ọ̀rúnmìlà", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Forge",
+        vessel: ActionVessel::Residue,
         opcode: OduOpCode::PushConst0 },
 
     // ────────────────────────────────────────────────
@@ -1249,6 +1542,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Burn something symbolic of your past", "Declare what must die before dawn"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Contract",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 113, binary: 0b01110001,
@@ -1259,6 +1554,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sit in darkness with no sound", "Name your shadow aloud before sleep"],
         orisha: &["Ọ̀yá", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Clearing Act",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 114, binary: 0b01110010,
@@ -1269,6 +1566,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Journal your fears as symbols", "Scry in water after argument"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Attended Execution",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 115, binary: 0b01110011,
@@ -1279,6 +1578,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Lie in fetal position during meditation", "Fast from identity for three days"],
         orisha: &["Ọbàtálá", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Plan",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 116, binary: 0b01110100,
@@ -1289,6 +1590,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance until sweat becomes prayer", "Offer pepper to your altar"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Receipted Execution",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 117, binary: 0b01110101,
@@ -1299,6 +1602,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell your truth as a joke", "Meditate with opposites"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Private Precision",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 118, binary: 0b01110110,
@@ -1309,6 +1614,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak your secret before fire", "Shout your name into wind"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Forged Execution",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 119, binary: 0b01110111,
@@ -1319,6 +1626,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Enter a dark room alone", "Ritually scream into a bowl of water"],
         orisha: &["Ọ̀yá", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Iron Hand",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 120, binary: 0b01111000,
@@ -1329,6 +1638,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Cut cords symbolically with a blade", "Declare your freedom under full moon"],
         orisha: &["Ògún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Coordinated Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 121, binary: 0b01111001,
@@ -1339,6 +1650,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write your visions in a thunderstorm", "Crack open a coconut in ritual"],
         orisha: &["Ṣàngó", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 122, binary: 0b01111010,
@@ -1349,6 +1662,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Chew bitter herbs in silence", "Confront your obstacle in symbolic gesture"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Portable Execution",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 123, binary: 0b01111011,
@@ -1359,6 +1674,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Spin in circles while chanting", "Allow nonsense to lead you to truth"],
         orisha: &["Èṣù", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 124, binary: 0b01111100,
@@ -1369,6 +1686,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Burn an old script under the moon", "Create your own ritual calendar"],
         orisha: &["Ọ̀rúnmìlà", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Visioned Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 125, binary: 0b01111101,
@@ -1379,6 +1698,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write a public truth-telling letter", "Pour libation before legal matters"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Fractal Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 126, binary: 0b01111110,
@@ -1389,6 +1710,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance provocatively in sacred space", "Laugh until you cry in ritual"],
         orisha: &["Ọ̀ṣun", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Sacred Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 127, binary: 0b01111111,
@@ -1399,6 +1722,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Host a ritual funeral for your old self", "Cover your mirrors for seven days post-initiation"],
         orisha: &["Ọbàtálá", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Strike",
+        vessel: ActionVessel::Execution,
         opcode: OduOpCode::CastCowries },
 
     // ────────────────────────────────────────────────
@@ -1413,6 +1738,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Forge a path in nature", "Bless your tools with palm oil"],
         orisha: &["Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 129, binary: 0b10000001,
@@ -1423,6 +1750,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Strike earth three times before sleep", "Offer iron to the ancestors"],
         orisha: &["Ògún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Chorus",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 130, binary: 0b10000010,
@@ -1433,6 +1762,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write your vision and act on one step within 24 hours", "Anoint your feet with ash"],
         orisha: &["Ògún", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Watching Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 131, binary: 0b10000011,
@@ -1443,6 +1774,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sit in silence until a decision arises", "Pour water slowly over a blade"],
         orisha: &["Ògún", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Feedback Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 132, binary: 0b10000100,
@@ -1453,6 +1786,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sharpen a blade in ritual", "Fast on the day of Mars"],
         orisha: &["Ògún", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Joint Receipt",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 133, binary: 0b10000101,
@@ -1463,6 +1798,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tie red thread around your dominant hand", "Meditate with a metal object"],
         orisha: &["Ògún", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 134, binary: 0b10000110,
@@ -1473,6 +1810,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Declare your next move aloud daily", "Whistle while walking your ritual path"],
         orisha: &["Ògún", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 135, binary: 0b10000111,
@@ -1483,6 +1822,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Break something obsolete in ritual", "Offer red cloth to Ògún"],
         orisha: &["Ògún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Iron Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 136, binary: 0b10001000,
@@ -1493,6 +1834,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Train your body in rhythm", "Forge a ritual blade with your name on it"],
         orisha: &["Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 137, binary: 0b10001001,
@@ -1503,6 +1846,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance in rain or thunder", "Speak to iron in your native tongue"],
         orisha: &["Ògún", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Dissenting Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 138, binary: 0b10001010,
@@ -1513,6 +1858,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Cleanse with iron filings and salt", "Bury a blade under your bed for three nights"],
         orisha: &["Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 139, binary: 0b10001011,
@@ -1523,6 +1870,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create something with your hands", "Channel anger into movement"],
         orisha: &["Ògún", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Consensual Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 140, binary: 0b10001100,
@@ -1533,6 +1882,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Draw sacred geometries in ash", "Hammer something while chanting your goal"],
         orisha: &["Ògún", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Visionary Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 141, binary: 0b10001101,
@@ -1543,6 +1894,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite ancestral names before battle", "Write your truth in red ink"],
         orisha: &["Ògún", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Growing Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 142, binary: 0b10001110,
@@ -1553,6 +1906,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Oil a blade with honey in ritual", "Make peace after battle — symbolic or real"],
         orisha: &["Ògún", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Swarm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     Odu { index: 143, binary: 0b10001111,
@@ -1563,6 +1918,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak your vow to the sky before sunrise", "Make an offering at a crossroads"],
         orisha: &["Ògún", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Storm",
+        vessel: ActionVessel::Swarm,
         opcode: OduOpCode::CastCowries },
 
     // ────────────────────────────────────────────────
@@ -1577,6 +1934,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Stand barefoot in a thunderstorm", "Call out your purpose during lightning"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Limit",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 145, binary: 0b10010001,
@@ -1587,6 +1946,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast during stormy nights", "Meditate on rain's sound"],
         orisha: &["Ọ̀yá", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Silent Refusal",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 146, binary: 0b10010010,
@@ -1597,6 +1958,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write down sudden ideas", "Practice breathwork after lightning strikes"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Watchful Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 147, binary: 0b10010011,
@@ -1607,6 +1970,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sit in quiet before dawn", "Offer water and tobacco to altar"],
         orisha: &["Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Broken Loop Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 148, binary: 0b10010100,
@@ -1617,6 +1982,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance with firelight", "Offer red palm oil to fire deity"],
         orisha: &["Ṣàngó", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Ledger Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 149, binary: 0b10010101,
@@ -1627,6 +1994,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell a joke in sacred space", "Practice laughter meditation"],
         orisha: &["Èṣù", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Unmasking Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 150, binary: 0b10010110,
@@ -1637,6 +2006,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Chant storm prayers", "Speak blessings into the wind"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Residue Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 151, binary: 0b10010111,
@@ -1647,6 +2018,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Visualize lightning cleansing your aura", "Break an old habit in ritual"],
         orisha: &["Ṣàngó", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Execution Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 152, binary: 0b10011000,
@@ -1657,6 +2030,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use a machete to clear brush in ritual", "Offer iron tools to Ògún"],
         orisha: &["Ṣàngó", "Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Restraint",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 153, binary: 0b10011001,
@@ -1667,6 +2042,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate during a thunderstorm", "Offer palm nuts to Òsà"],
         orisha: &["Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 154, binary: 0b10011010,
@@ -1677,6 +2054,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Drink bitter herbs during storm", "Confront what you fear with honesty"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consent Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 155, binary: 0b10011011,
@@ -1687,6 +2066,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Write spontaneously during storms", "Create abstract art in ritual"],
         orisha: &["Ọ̀yá", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Vision Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 156, binary: 0b10011100,
@@ -1697,6 +2078,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Draw sacred geometry in sand", "Build wind chimes to harness storms"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Growth Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 157, binary: 0b10011101,
@@ -1707,6 +2090,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Call out injustices during storms", "Write petitions on palm leaves"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 158, binary: 0b10011110,
@@ -1717,6 +2102,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance freely in the rain", "Offer sweet libations to Òsà"],
         orisha: &["Ọ̀ṣun", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Brake",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     Odu { index: 159, binary: 0b10011111,
@@ -1727,6 +2114,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate at sunrise post-storm", "Offer white flowers to Òsà"],
         orisha: &["Ọ̀yá", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Measured Silence",
+        vessel: ActionVessel::Restraint,
         opcode: OduOpCode::Sub },
 
     // ────────────────────────────────────────────────
@@ -1741,6 +2130,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Apply bitter herbs to scars", "Speak honestly about your suffering"],
         orisha: &["Ọ̀rúnmìlà", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 161, binary: 0b10100001,
@@ -1751,6 +2142,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast in darkness for three days", "Journal fears without judgment"],
         orisha: &["Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Crossing",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 162, binary: 0b10100010,
@@ -1761,6 +2154,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate facing a mirror", "Write and burn your lies"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Watchful Crossing",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 163, binary: 0b10100011,
@@ -1771,6 +2166,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Hold sacred silence for sorrow", "Offer water to ancestors for healing"],
         orisha: &["Ọ̀ṣun", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Recursive Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 164, binary: 0b10100100,
@@ -1781,6 +2178,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sweat in sacred steam", "Chant healing mantras"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Ledger Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 165, binary: 0b10100101,
@@ -1791,6 +2190,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Tell a sacred joke", "Laugh at your fears"],
         orisha: &["Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 166, binary: 0b10100110,
@@ -1801,6 +2202,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak blessings daily", "Silence gossip"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 167, binary: 0b10100111,
@@ -1811,6 +2214,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform a truth-telling ritual", "Release illusions into fire"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Decisive Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 168, binary: 0b10101000,
@@ -1821,6 +2226,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use ritual blade to cut cords", "Cleanse your space with iron"],
         orisha: &["Ògún"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 169, binary: 0b10101001,
@@ -1831,6 +2238,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate during thunderstorms", "Offer palm oil to Òsà"],
         orisha: &["Ṣàngó", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 170, binary: 0b10101010,
@@ -1841,6 +2250,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Balance fasting with feast", "Practice forgiveness rituals"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 171, binary: 0b10101011,
@@ -1851,6 +2262,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Allow spontaneous movement", "Embrace visionary dreams"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consensual Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 172, binary: 0b10101100,
@@ -1861,6 +2274,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create ritual art", "Build protective talismans"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Visionary Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 173, binary: 0b10101101,
@@ -1871,6 +2286,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite justice prayers", "Offer sacrifices for truth"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Growing Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 174, binary: 0b10101110,
@@ -1881,6 +2298,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Engage in mindful touch rituals", "Offer honey to ancestors"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     Odu { index: 175, binary: 0b10101111,
@@ -1891,6 +2310,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Bathe in sacred waters", "Meditate on white light"],
         orisha: &["Ọbàtálá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Migration",
+        vessel: ActionVessel::Migration,
         opcode: OduOpCode::Swap },
 
     // ────────────────────────────────────────────────
@@ -1905,6 +2326,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sit in silence with elders", "Record dreams nightly"],
         orisha: &["Ọ̀rúnmìlà", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Covenant",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 177, binary: 0b10110001,
@@ -1915,6 +2338,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate in darkness", "Light candles for ancestors"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Silent Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 178, binary: 0b10110010,
@@ -1925,6 +2350,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Journal reflections", "Practice slow breathing exercises"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Watchful Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 179, binary: 0b10110011,
@@ -1935,6 +2362,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sit in stillness daily", "Offer water to sacred stones"],
         orisha: &["Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Recursive Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 180, binary: 0b10110100,
@@ -1945,6 +2374,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Fast on sacred days", "Offer flame to the ancestors"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Receipted Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 181, binary: 0b10110101,
@@ -1955,6 +2386,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice playful meditation", "Laugh heartily in ritual"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 182, binary: 0b10110110,
@@ -1965,6 +2398,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite ancestral chants", "Speak with intention"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 183, binary: 0b10110111,
@@ -1975,6 +2410,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light ritual candles", "Focus on clear goals"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Decisive Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 184, binary: 0b10111000,
@@ -1985,6 +2422,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice mindful movement", "Offer iron tools in ritual"],
         orisha: &["Ògún", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 185, binary: 0b10111001,
@@ -1995,6 +2434,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate during storms", "Offer palm oil to storm spirits"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 186, binary: 0b10111010,
@@ -2005,6 +2446,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use bitter herbs in ritual", "Journal emotional progress"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 187, binary: 0b10111011,
@@ -2015,6 +2458,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Honor elders regularly", "Mark cycles with ritual"],
         orisha: &["Ọ̀rúnmìlà", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 188, binary: 0b10111100,
@@ -2025,6 +2470,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Clean and prepare altars", "Perform daily offerings"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Visionary Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 189, binary: 0b10111101,
@@ -2035,6 +2482,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite justice prayers", "Make offerings for fairness"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Growing Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 190, binary: 0b10111110,
@@ -2045,6 +2494,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer honey in ritual", "Celebrate small victories"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Consent",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 191, binary: 0b10111111,
@@ -2055,6 +2506,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on white light", "Offer white flowers"],
         orisha: &["Ọ̀rúnmìlà", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Covenant",
+        vessel: ActionVessel::Consent,
         opcode: OduOpCode::HaltIfOne },
 
     // ────────────────────────────────────────────────
@@ -2069,6 +2522,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create vision boards", "Meditate on life's patterns"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Horizon",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 193, binary: 0b11000001,
@@ -2079,6 +2534,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice surrender meditation", "Light black candles in ritual"],
         orisha: &["Ọ̀rúnmìlà", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Horizon",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 194, binary: 0b11000010,
@@ -2089,6 +2546,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Keep a planner", "Visualize future outcomes"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Watching Horizon",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 195, binary: 0b11000011,
@@ -2099,6 +2558,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice grounding rituals", "Build altars with earth elements"],
         orisha: &["Ọbàtálá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Recursive Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 196, binary: 0b11000100,
@@ -2109,6 +2570,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use water offerings", "Perform daily purification"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Receipted Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 197, binary: 0b11000101,
@@ -2119,6 +2582,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance in ritual", "Invite laughter into sacred space"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 198, binary: 0b11000110,
@@ -2129,6 +2594,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Chant affirmations", "Speak intentions aloud"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory of the Future",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 199, binary: 0b11000111,
@@ -2139,6 +2606,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light ritual candles", "Focus on goals with intensity"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Decisive Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 200, binary: 0b11001000,
@@ -2149,6 +2618,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice martial arts or movement", "Offer iron tools in ritual"],
         orisha: &["Ògún", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 201, binary: 0b11001001,
@@ -2159,6 +2630,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate in storms", "Offer palm oil to storm spirits"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 202, binary: 0b11001010,
@@ -2169,6 +2642,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use bitter herbs", "Journal healing progress"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 203, binary: 0b11001011,
@@ -2179,6 +2654,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Honor elders", "Mark sacred cycles"],
         orisha: &["Ọ̀rúnmìlà", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 204, binary: 0b11001100,
@@ -2189,6 +2666,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Visualize desired outcomes", "Affirm personal power"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 205, binary: 0b11001101,
@@ -2199,6 +2678,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite prayers for fairness", "Make offerings for balance"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Growing Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 206, binary: 0b11001110,
@@ -2209,6 +2690,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer honey", "Celebrate blessings"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Vision",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     Odu { index: 207, binary: 0b11001111,
@@ -2219,6 +2702,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on light", "Offer white flowers"],
         orisha: &["Ọ̀rúnmìlà", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Horizon",
+        vessel: ActionVessel::Vision,
         opcode: OduOpCode::PushConst1 },
 
     // ────────────────────────────────────────────────
@@ -2233,6 +2718,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice daily mindfulness", "Offer libations for timing"],
         orisha: &["Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Seed",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 209, binary: 0b11010001,
@@ -2243,6 +2730,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate in silence", "Light black candles with reverence"],
         orisha: &["Ọ̀yá", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Pruning",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 210, binary: 0b11010010,
@@ -2253,6 +2742,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Journal emotions", "Practice loving-kindness meditation"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Watching Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 211, binary: 0b11010011,
@@ -2263,6 +2754,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice grounding rituals", "Connect with earth energies"],
         orisha: &["Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Growth Loop",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 212, binary: 0b11010100,
@@ -2273,6 +2766,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Offer water to sacred fire", "Practice fasting with intention"],
         orisha: &["Ọ̀ṣun", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Ledger of Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 213, binary: 0b11010101,
@@ -2283,6 +2778,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use laughter in healing", "Tell sacred stories"],
         orisha: &["Èṣù", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Growing Mask",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 214, binary: 0b11010110,
@@ -2293,6 +2790,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite affirmations", "Practice active listening"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory of Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 215, binary: 0b11010111,
@@ -2303,6 +2802,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate with candles", "Practice breath control"],
         orisha: &["Ṣàngó", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Decisive Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 216, binary: 0b11011000,
@@ -2313,6 +2814,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice martial discipline", "Offer iron in ritual"],
         orisha: &["Ògún", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 217, binary: 0b11011001,
@@ -2323,6 +2826,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate during storms", "Offer palm oil to Òsà"],
         orisha: &["Ọ̀yá", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 218, binary: 0b11011010,
@@ -2333,6 +2838,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use herbal remedies", "Journal healing journey"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 219, binary: 0b11011011,
@@ -2343,6 +2850,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Honor elders", "Observe sacred cycles"],
         orisha: &["Ọ̀rúnmìlà", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 220, binary: 0b11011100,
@@ -2353,6 +2862,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Maintain altar order", "Perform daily offerings"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Visionary Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 221, binary: 0b11011101,
@@ -2363,6 +2874,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice meditation", "Live with intention"],
         orisha: &["Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 222, binary: 0b11011110,
@@ -2373,6 +2886,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Celebrate small wins", "Offer honey in ritual"],
         orisha: &["Ọ̀ṣun", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     Odu { index: 223, binary: 0b11011111,
@@ -2383,6 +2898,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on white light", "Offer white flowers"],
         orisha: &["Ọbàtálá", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Growth",
+        vessel: ActionVessel::Growth,
         opcode: OduOpCode::Dup },
 
     // ────────────────────────────────────────────────
@@ -2397,6 +2914,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Engage in playful rituals", "Use laughter as medicine"],
         orisha: &["Ọ̀ṣun", "Èṣù"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Vault",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 225, binary: 0b11100001,
@@ -2407,6 +2926,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on mystery", "Perform joyful offerings"],
         orisha: &["Ọ̀ṣun", "Ọ̀yá"],
         interpretation_type: "synthetic",
+        universal_name: "The Void of the Vault",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 226, binary: 0b11100010,
@@ -2417,6 +2938,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Journal joyful moments", "Practice playful meditation"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Watched Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 227, binary: 0b11100011,
@@ -2427,6 +2950,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sing in ritual", "Dance freely"],
         orisha: &["Ọ̀ṣun", "Yemọja"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Loop",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 228, binary: 0b11100100,
@@ -2437,6 +2962,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Celebrate with drumming", "Use humor to heal"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Receipt",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 229, binary: 0b11100101,
@@ -2447,6 +2974,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Engage in sacred play", "Invoke laughter in ritual"],
         orisha: &["Èṣù", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 230, binary: 0b11100110,
@@ -2457,6 +2986,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Recite joyful chants", "Speak with humor"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory Vault",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 231, binary: 0b11100111,
@@ -2467,6 +2998,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light candles joyfully", "Express passion playfully"],
         orisha: &["Ọ̀ṣun", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Decisive Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 232, binary: 0b11101000,
@@ -2477,6 +3010,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice martial dance", "Offer laughter as sacrifice"],
         orisha: &["Ògún", "Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 233, binary: 0b11101001,
@@ -2487,6 +3022,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Dance in storms", "Offer palm oil joyfully"],
         orisha: &["Ọ̀ṣun", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 234, binary: 0b11101010,
@@ -2497,6 +3034,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use humor in healing rituals", "Laugh heartily"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 235, binary: 0b11101011,
@@ -2507,6 +3046,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Honor ancestors with song", "Celebrate tradition playfully"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 236, binary: 0b11101100,
@@ -2517,6 +3058,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Create joyful rituals", "Maintain altar with care"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Vision Vault",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 237, binary: 0b11101101,
@@ -2527,6 +3070,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Celebrate with moderation", "Practice gratitude"],
         orisha: &["Ọ̀ṣun", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Growing Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 238, binary: 0b11101110,
@@ -2537,6 +3082,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Engage in playful rituals", "Invite laughter daily"],
         orisha: &["Ọ̀ṣun"],
         interpretation_type: "synthetic",
+        universal_name: "The Pure Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     Odu { index: 239, binary: 0b11101111,
@@ -2547,6 +3094,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on lightness", "Offer white flowers joyfully"],
         orisha: &["Ọ̀ṣun", "Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Seal",
+        vessel: ActionVessel::Seal,
         opcode: OduOpCode::Add },
 
     // ────────────────────────────────────────────────
@@ -2561,6 +3110,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on clarity", "Use white candles in ritual"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Genesis Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 241, binary: 0b11110001,
@@ -2571,6 +3122,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light black and white candles", "Seek wisdom in silence"],
         orisha: &["Ọ̀yá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Void Rest",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 242, binary: 0b11110010,
@@ -2581,6 +3134,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice honest journaling", "Engage in reflective meditation"],
         orisha: &["Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Watching Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 243, binary: 0b11110011,
@@ -2591,6 +3146,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Build sacred altars", "Honor commitments"],
         orisha: &["Ọbàtálá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Loop of Days",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 244, binary: 0b11110100,
@@ -2601,6 +3158,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Perform cleansing baths", "Use white herbs"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Rhythmed Receipt",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 245, binary: 0b11110101,
@@ -2611,6 +3170,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Sing truthful songs", "Celebrate authenticity"],
         orisha: &["Èṣù", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Masked Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 246, binary: 0b11110110,
@@ -2621,6 +3182,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Speak with integrity", "Practice sacred chanting"],
         orisha: &["Ọ̀rúnmìlà", "Ṣàngó"],
         interpretation_type: "synthetic",
+        universal_name: "The Memory Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 247, binary: 0b11110111,
@@ -2631,6 +3194,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Light ritual fires", "Meditate on transformation"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Decisive Beat",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 248, binary: 0b11111000,
@@ -2641,6 +3206,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice bold rituals", "Offer iron tools"],
         orisha: &["Ògún", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Swarm Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 249, binary: 0b11111001,
@@ -2651,6 +3218,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate during storms", "Offer palm oil with intention"],
         orisha: &["Ṣàngó", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Restrained Beat",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 250, binary: 0b11111010,
@@ -2661,6 +3230,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Use healing herbs", "Engage in emotional release rituals"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Migrating Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 251, binary: 0b11111011,
@@ -2671,6 +3242,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Honor ancestors", "Study sacred texts"],
         orisha: &["Ọ̀rúnmìlà", "Egúngún"],
         interpretation_type: "synthetic",
+        universal_name: "The Consented Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 252, binary: 0b11111100,
@@ -2681,6 +3254,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice meditation", "Maintain altar purity"],
         orisha: &["Ọ̀rúnmìlà", "Ọbàtálá"],
         interpretation_type: "synthetic",
+        universal_name: "The Vision Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 253, binary: 0b11111101,
@@ -2691,6 +3266,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Practice patience meditation", "Offer white flowers"],
         orisha: &["Ọbàtálá", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Growth Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 254, binary: 0b11111110,
@@ -2701,6 +3278,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Celebrate with song", "Invoke joy in ritual"],
         orisha: &["Ọ̀ṣun", "Ọ̀rúnmìlà"],
         interpretation_type: "synthetic",
+        universal_name: "The Sealed Pulse",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 
     Odu { index: 255, binary: 0b11111111,
@@ -2711,6 +3290,8 @@ pub static ODU_SET: [Odu; 256] = [
         prescriptions: &["Meditate on unity", "Offer white light"],
         orisha: &["Olódùmarè"],
         interpretation_type: "synthetic",
+        universal_name: "The Eternal Return",
+        vessel: ActionVessel::Rhythm,
         opcode: OduOpCode::HaltIfOne },
 ];
 
