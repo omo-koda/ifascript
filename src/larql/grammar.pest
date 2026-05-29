@@ -1,0 +1,37 @@
+// IfáScript Ω — LARQL Grammar
+// Language for Ase-Routed Query Language
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+COMMENT    = _{ "//" ~ (!"\n" ~ ANY)* }
+
+// Atoms
+identifier = @{ ASCII_ALPHA ~ (ASCII_ALPHANUMERIC | "_")* }
+number     = @{ ASCII_DIGIT+ ~ ("." ~ ASCII_DIGIT+)? }
+string     = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+boolean    = @{ ^"TRUE" | ^"FALSE" }
+odu_id     = @{ ASCII_DIGIT+ }
+scale      = { "micro" | "meso" | "macro" }
+operator   = { "CONTAINS" | "IN" | ">=" | "<=" | ">" | "<" | "=" }
+
+// Conditions
+condition  = { identifier ~ operator ~ (string | boolean | number) }
+conditions = { "WHERE" ~ condition ~ ("AND" ~ condition)* }
+
+// PREPARE clauses
+check_clause = { identifier ~ condition? }
+checks       = { "CHECK:" ~ check_clause ~ ("," ~ check_clause)* }
+steps        = @{ "[" ~ (!"]" ~ ANY)* ~ "]" }
+
+// WALK clauses
+aggregate_clause = { identifier ~ condition? }
+aggregates       = { "AGGREGATE:" ~ aggregate_clause ~ ("," ~ aggregate_clause)* }
+target           = { identifier }
+
+// Query types
+prepare_query    = { "PREPARE"    ~ identifier ~ checks ~ ("RETURN:" ~ steps)? }
+walk_query       = { "WALK"       ~ identifier ~ aggregates ~ ("COMPARE" ~ target)? }
+synthesize_query = { "SYNTHESIZE" ~ identifier ~ "FROM" ~ odu_id ~ ("," ~ odu_id)* ~ conditions? ~ ("CONFIDENCE" ~ number)? }
+verify_query     = { "VERIFY"     ~ identifier ~ conditions? }
+describe_query   = { "DESCRIBE"   ~ identifier ~ "AT" ~ "SCALE" ~ scale ~ ("," ~ scale)* }
+
+larql_query = _{ SOI ~ (prepare_query | walk_query | synthesize_query | verify_query | describe_query) ~ EOI }

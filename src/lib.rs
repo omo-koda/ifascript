@@ -1,5 +1,6 @@
 pub mod vm;
 pub mod odu;
+pub mod larql;
 pub mod entropy;
 pub mod ebo;
 pub mod soul;
@@ -25,3 +26,7 @@ pub use odu::{get_odu, get_odu_by_binary, lookup_by_name, ODU_SET, Odu};
 // Cosmogram — ese myth, sacred metadata, hermetic annotations
 pub use cosmogram::{get_cosmogram, OduCosmos, COSMOGRAM, CosmogramEngine, CosmogramState};
 pub use compiler::{IfaParser, ParsedInvocation, ParseError, compile_invocations};
+
+// LARQL — Ase-Routed Query Language engine
+pub use larql::{LarqlEngine, LarqlError, QueryResult};
+pub use larql::engine::query as larql_query;
