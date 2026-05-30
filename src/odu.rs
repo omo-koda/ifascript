@@ -144,6 +144,76 @@ impl ActionVessel {
             ActionVessel::Rhythm    => "rhythm_codex.md",
         }
     }
+
+    pub fn required_fields(&self) -> &'static [&'static str] {
+        match self {
+            ActionVessel::Genesis   => &["timestamp", "agent_id", "scope", "human_consent"],
+            ActionVessel::Void      => &["timestamp", "agent_id", "reason"],
+            ActionVessel::Attention => &["timestamp", "signal", "noise_ratio"],
+            ActionVessel::Loop      => &["timestamp", "pattern", "iteration_count"],
+            ActionVessel::Receipt   => &["action", "outcome", "variance", "human_impact", "consent_verified"],
+            ActionVessel::Mask      => &["timestamp", "public_key", "private_scope"],
+            ActionVessel::Residue   => &["timestamp", "source", "residue_type"],
+            ActionVessel::Execution => &["timestamp", "plan", "steps"],
+            ActionVessel::Swarm     => &["timestamp", "agents", "charter"],
+            ActionVessel::Restraint => &["timestamp", "boundary", "reason"],
+            ActionVessel::Migration => &["timestamp", "source", "destination"],
+            ActionVessel::Consent   => &["timestamp", "scope", "approved_by"],
+            ActionVessel::Vision    => &["timestamp", "horizon", "direction"],
+            ActionVessel::Growth    => &["timestamp", "seed", "growth_vector"],
+            ActionVessel::Seal      => &["timestamp", "sealed_by", "scope"],
+            ActionVessel::Rhythm    => &["timestamp", "cadence", "phase"],
+        }
+    }
+}
+
+impl std::fmt::Display for ActionVessel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            ActionVessel::Genesis   => "Genesis",
+            ActionVessel::Void      => "Void",
+            ActionVessel::Attention => "Attention",
+            ActionVessel::Loop      => "Loop",
+            ActionVessel::Receipt   => "Receipt",
+            ActionVessel::Mask      => "Mask",
+            ActionVessel::Residue   => "Residue",
+            ActionVessel::Execution => "Execution",
+            ActionVessel::Swarm     => "Swarm",
+            ActionVessel::Restraint => "Restraint",
+            ActionVessel::Migration => "Migration",
+            ActionVessel::Consent   => "Consent",
+            ActionVessel::Vision    => "Vision",
+            ActionVessel::Growth    => "Growth",
+            ActionVessel::Seal      => "Seal",
+            ActionVessel::Rhythm    => "Rhythm",
+        };
+        write!(f, "{}", s)
+    }
+}
+
+impl std::str::FromStr for ActionVessel {
+    type Err = String;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "Genesis"   => Ok(ActionVessel::Genesis),
+            "Void"      => Ok(ActionVessel::Void),
+            "Attention" => Ok(ActionVessel::Attention),
+            "Loop"      => Ok(ActionVessel::Loop),
+            "Receipt"   => Ok(ActionVessel::Receipt),
+            "Mask"      => Ok(ActionVessel::Mask),
+            "Residue"   => Ok(ActionVessel::Residue),
+            "Execution" => Ok(ActionVessel::Execution),
+            "Swarm"     => Ok(ActionVessel::Swarm),
+            "Restraint" => Ok(ActionVessel::Restraint),
+            "Migration" => Ok(ActionVessel::Migration),
+            "Consent"   => Ok(ActionVessel::Consent),
+            "Vision"    => Ok(ActionVessel::Vision),
+            "Growth"    => Ok(ActionVessel::Growth),
+            "Seal"      => Ok(ActionVessel::Seal),
+            "Rhythm"    => Ok(ActionVessel::Rhythm),
+            other       => Err(format!("unknown ActionVessel: {}", other)),
+        }
+    }
 }
 
 /// Lookup by index (0–255). Panics on out-of-range — never call with unchecked input.

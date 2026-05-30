@@ -3,8 +3,11 @@ use rand_chacha::ChaCha20Rng;
 use rand::SeedableRng;
 use sha2::{Digest, Sha256};
 use std::collections::VecDeque;
+#[cfg(feature = "network")]
 use std::time::{Duration, Instant};
+#[cfg(feature = "network")]
 use reqwest::blocking::Client;
+#[cfg(feature = "network")]
 use serde_json::Value;
 
 pub struct NISTBeacon;
@@ -19,8 +22,11 @@ pub struct CowrieOracle {
     buffer: VecDeque<u32>,
     ritual_seed: [u8; 32],
     fallback_rng: ChaCha20Rng,
+    #[cfg(feature = "network")]
     last_fetch: Instant,
+    #[cfg(feature = "network")]
     fetch_interval: Duration,
+    #[cfg(feature = "network")]
     client: Client,
 }
 
@@ -28,16 +34,18 @@ impl CowrieOracle {
     pub fn new(ritual_intent: &str) -> Self {
         let seed: [u8; 32] = Sha256::digest(ritual_intent.as_bytes()).into();
         let fallback_rng = ChaCha20Rng::from_seed(seed);
-        let client = Client::new();
 
-        Self {
+        CowrieOracle {
             source: EntropySource::Atmospheric(NISTBeacon),
             buffer: VecDeque::new(),
             ritual_seed: seed,
             fallback_rng,
+            #[cfg(feature = "network")]
+            client: Client::new(),
+            #[cfg(feature = "network")]
             last_fetch: Instant::now() - Duration::from_secs(61),
+            #[cfg(feature = "network")]
             fetch_interval: Duration::from_secs(60),
-            client,
         }
     }
 
@@ -48,7 +56,13 @@ impl CowrieOracle {
     fn next_u32(&mut self) -> u32 {
         match &mut self.source {
             EntropySource::Atmospheric(_beacon) => {
-                if self.buffer.is_empty() || self.last_fetch.elapsed() > self.fetch_interval {
+                #[cfg(feature = "network")]
+                let needs_refill = self.buffer.is_empty()
+                    || self.last_fetch.elapsed() > self.fetch_interval;
+                #[cfg(not(feature = "network"))]
+                let needs_refill = self.buffer.is_empty();
+
+                if needs_refill {
                     self.refill_from_beacon();
                 }
 
@@ -67,7 +81,7 @@ impl CowrieOracle {
         self.fallback_rng.next_u32()
     }
 
-
+    #[cfg(feature = "network")]
     fn refill_from_beacon(&mut self) {
         if let Ok(resp) = self.client.get("https://beacon.nist.gov/beacon/2.0/chain/1/pulse/last").send() {
             if let Ok(json) = resp.json::<Value>() {
@@ -88,6 +102,11 @@ impl CowrieOracle {
         }
 
         self.last_fetch = Instant::now();
+    }
+
+    #[cfg(not(feature = "network"))]
+    fn refill_from_beacon(&mut self) {
+        // no-op: buffer stays empty, next_u32 uses fallback_u32
     }
 
     fn hash_seed(&self) -> u32 {
