@@ -2,6 +2,7 @@ use std::sync::Arc;
 use ifascript::larql::{parse_query, LarqlEngine, OdùCorpus, OdùMetadata};
 use ifascript::larql::schema::SensitivityLevel;
 use ifascript::odu::ActionVessel;
+use ifascript::odu::ODU_SET;
 
 fn mock_corpus() -> Arc<OdùCorpus> {
     Arc::new(OdùCorpus {
@@ -135,4 +136,112 @@ fn test_describe_returns_vision_vessel() {
     let result = engine.execute(r#"DESCRIBE growth AT SCALE micro,macro"#).unwrap();
     assert!(result.mapped_vessels.contains(&ActionVessel::Vision));
     assert_eq!(result.action_steps.len(), 2);
+}
+
+// ── from_odu_set tests ────────────────────────────────────────────────────────
+
+#[test]
+fn test_from_odu_set_has_256_entries() {
+    let corpus = OdùCorpus::from_odu_set();
+    assert_eq!(corpus.entries.len(), ODU_SET.len());
+}
+
+#[test]
+fn test_from_odu_set_entry_zero_is_genesis() {
+    let corpus = OdùCorpus::from_odu_set();
+    let meta = corpus.get(0).unwrap();
+    assert_eq!(meta.prescription_template, ActionVessel::Genesis);
+    assert_eq!(meta.minimum_tier, 1);
+    assert!(meta.confidence_baseline > 0.9);
+    assert!(meta.human_override_allowed);
+}
+
+#[test]
+fn test_from_odu_set_synthesize_uses_default_corpus() {
+    let corpus = Arc::new(OdùCorpus::from_odu_set());
+    let engine = LarqlEngine::new(corpus, false, 3);
+    let result = engine.execute(
+        r#"SYNTHESIZE governance FROM 0 WHERE confidence_baseline > 0.8"#
+    ).unwrap();
+    assert!(!result.action_steps.is_empty());
+    assert!(result.confidence > 0.8);
+}
+
+#[test]
+fn test_from_odu_set_tier1_blocked_from_synthesize() {
+    let corpus = Arc::new(OdùCorpus::from_odu_set());
+    let engine = LarqlEngine::new(corpus, true, 1);
+    let result = engine.execute(r#"SYNTHESIZE test FROM 0"#);
+    assert!(result.is_err());
+}
+
+// ── condition_passes operator coverage ───────────────────────────────────────
+
+#[test]
+fn test_verify_gt_valid_threshold_passes() {
+    let corpus = mock_corpus();
+    let engine = LarqlEngine::new(corpus, false, 2);
+    let result = engine.execute(r#"VERIFY Receipt WHERE confidence > 0.7"#).unwrap();
+    assert!(result.action_steps[0].contains("passed"));
+}
+
+#[test]
+fn test_verify_lte_passes() {
+    let corpus = mock_corpus();
+    let engine = LarqlEngine::new(corpus, false, 2);
+    let result = engine.execute(r#"VERIFY Restraint WHERE score <= 1.0"#).unwrap();
+    assert!(result.action_steps[0].contains("passed"));
+}
+
+#[test]
+fn test_conditions_match_ripple_effect_score() {
+    let corpus = Arc::new(OdùCorpus {
+        entries: vec![OdùMetadata {
+            odu_id: 10,
+            name: "Test".into(),
+            minimum_tier: 2,
+            sensitivity_level: SensitivityLevel::Medium,
+            version: "1.0".into(),
+            confidence_baseline: 0.88,
+            prescription_template: ActionVessel::Restraint,
+            larql_tags: vec![],
+            larql_rules: vec![],
+            fractal_patterns: vec![],
+            ripple_effect_score: 0.72,
+            human_override_allowed: true,
+        }],
+    });
+    let engine = LarqlEngine::new(corpus, false, 3);
+    // ripple_effect_score 0.72 > 0.6 → should synthesize
+    let result = engine.execute(
+        r#"SYNTHESIZE test FROM 10 WHERE ripple_effect_score > 0.6"#
+    ).unwrap();
+    assert!(!result.action_steps.is_empty());
+}
+
+#[test]
+fn test_conditions_match_human_override_allowed() {
+    let corpus = Arc::new(OdùCorpus {
+        entries: vec![OdùMetadata {
+            odu_id: 11,
+            name: "Test Override".into(),
+            minimum_tier: 1,
+            sensitivity_level: SensitivityLevel::Low,
+            version: "1.0".into(),
+            confidence_baseline: 0.90,
+            prescription_template: ActionVessel::Consent,
+            larql_tags: vec![],
+            larql_rules: vec![],
+            fractal_patterns: vec![],
+            ripple_effect_score: 0.85,
+            human_override_allowed: false,
+        }],
+    });
+    let engine = LarqlEngine::new(corpus, false, 3);
+    // human_override_allowed = false → condition `= TRUE` should exclude this ODU from synthesis
+    let result = engine.execute(
+        r#"SYNTHESIZE test FROM 11 WHERE human_override_allowed = TRUE"#
+    ).unwrap();
+    // No ODU matched — no "Synthesized wisdom" entry should appear
+    assert!(!result.action_steps.iter().any(|s| s.contains("Synthesized wisdom")));
 }

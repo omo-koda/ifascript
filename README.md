@@ -112,6 +112,36 @@ let odu = lookup_by_name("Ẹ̀jì Ogbe / Ẹ̀jì Ogbe").unwrap();
 assert_eq!(odu.vessel, ActionVessel::Genesis);
 ```
 
+### LARQL query (CLI)
+
+```bash
+# Verify a consent gate
+ifa larql --query "VERIFY Consent WHERE approved = TRUE"
+
+# Synthesize governance wisdom from Odù 0 using the default corpus
+ifa larql --query "SYNTHESIZE governance FROM 0 WHERE confidence_baseline > 0.8" --tier 3
+
+# Walk receipts over the last 7 days
+ifa larql --query "WALK last_7_days AGGREGATE: Receipt" --tier 2
+```
+
+### LARQL query (Rust API)
+
+```rust
+use std::sync::Arc;
+use ifascript::larql::{LarqlEngine, OdùCorpus};
+
+// Build the default 256-entry corpus from ODU_SET
+let corpus = Arc::new(OdùCorpus::from_odu_set());
+let engine = LarqlEngine::new(corpus, /* safe_mode */ true, /* tier */ 2);
+
+let result = engine.execute("VERIFY Consent WHERE approved = TRUE")?;
+println!("confidence: {:.2}", result.confidence);
+for step in &result.action_steps {
+    println!("  {}", step);
+}
+```
+
 ### Legacy program execution (backward-compatible)
 
 ```rust
@@ -126,13 +156,14 @@ vm.execute(vec!["Èjì Ogbè", "Ìwòrì Méjì", "Ọ̀túúrúpọ̀n"]);
 
 | File | Description |
 |------|-------------|
-| `src/odu.rs` | 256-entry Odù corpus: `ActionVessel`, `OduOpCode`, `Odu` struct, `ODU_SET`, `ODU_TABLE` |
+| `src/odu.rs` | 256-entry Odù corpus: `ActionVessel`, `OduOpCode`, `Odu` struct, `ODU_SET` |
 | `src/vm.rs` | `IfaVM`, `CastResult`, `OduOp` executor, Ebo enforcement |
 | `src/entropy.rs` | `CowrieOracle` — NIST Beacon + ChaCha20 fallback |
 | `src/ebo.rs` | `EboHistory`, ethical exception handling |
-| `Full 256 Digital Calabash.md` | Canonical prescription schema — all 256 Odù in standardized format |
-| `LARQL_INTEGRATION.md` | How `odu.rs` connects to the LARQL synthesis engine |
-| `LARQL` | LARQL module spec and production code stubs |
+| `src/larql/` | LARQL engine: parser, AST, schema, corpus builder, 5 query types |
+| `src/compiler/` | `.ifa` source parser — Hermetic gates, witness quorum, sabbath settlement |
+| `src/ritual_codex/` | `ResonancePacket`, receipt generation, Julia bridge stub |
+| `docs/ODU_CORPUS.md` | Canonical schema v4.0.0 — all 256 Odù in standardized format |
 | `examples/ase.rs` | Minimal Àṣẹ program |
 | `examples/cowrie_cast.rs` | Live NIST Beacon cowrie cast |
 
@@ -150,8 +181,12 @@ vm.execute(vec!["Èjì Ogbè", "Ìwòrì Méjì", "Ọ̀túúrúpọ̀n"]);
 | `CastResult` low-tier dispatch | ✅ Complete |
 | `cast_odu_full()` Hive-tier dispatch | ✅ Complete |
 | `lookup_by_name()` named queries | ✅ Complete |
-| LARQL synthesis engine | 🔄 In progress |
-| WASM compilation target | 🔄 Planned |
+| LARQL synthesis engine | ✅ Complete |
+| LARQL default corpus (`OdùCorpus::from_odu_set()`) | ✅ Complete |
+| `.ifa` compiler (Hermetic gates, witness quorum) | ✅ Complete |
+| Cosmogram state engine | ✅ Complete |
+| WASM compilation target | ✅ Configured (`cdylib` + `wasm32` deps) |
+| Julia resonance bridge | 🔜 Future (stub wired, FFI pending) |
 
 ---
 

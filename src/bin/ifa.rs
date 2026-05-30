@@ -4,7 +4,9 @@
 use clap::{Parser, Subcommand};
 use ifascript::compiler::compile_invocations;
 use ifascript::entropy::CowrieOracle;
+use ifascript::larql::{LarqlEngine, OdùCorpus};
 use std::path::PathBuf;
+use std::sync::Arc;
 
 #[derive(Parser)]
 #[command(name = "ifa")]
@@ -45,6 +47,17 @@ enum Commands {
         /// Output format: json (default) | summary
         #[arg(short, long, default_value = "json")]
         format: String,
+    },
+
+    /// Execute a LARQL query against the default Odù corpus
+    Larql {
+        /// LARQL query (e.g. "VERIFY Consent WHERE approved = TRUE")
+        #[arg(short, long)]
+        query: String,
+
+        /// Agent tier: 1 = low-tier, 2 = standard, 3 = hive/Èṣù
+        #[arg(short, long, default_value = "2")]
+        tier: u8,
     },
 }
 
@@ -97,6 +110,34 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
             Ok(())
+        }
+
+        Commands::Larql { query, tier } => {
+            let corpus = Arc::new(OdùCorpus::from_odu_set());
+            let engine = LarqlEngine::new(corpus, true, tier);
+
+            match engine.execute(&query) {
+                Ok(result) => {
+                    println!("✓ LARQL result (confidence: {:.2})", result.confidence);
+                    for (i, step) in result.action_steps.iter().enumerate() {
+                        println!("  [{}] {}", i + 1, step);
+                    }
+                    if !result.mapped_vessels.is_empty() {
+                        println!("  Vessels: {}", result.mapped_vessels.iter()
+                            .map(|v| v.to_string())
+                            .collect::<Vec<_>>()
+                            .join(", "));
+                    }
+                    if result.human_override_required {
+                        println!("⚠  Human override required");
+                    }
+                    Ok(())
+                }
+                Err(e) => {
+                    eprintln!("✗ LARQL error: {}", e);
+                    std::process::exit(1);
+                }
+            }
         }
 
         Commands::Build { input, format } => {
