@@ -231,9 +231,20 @@ impl LarqlEngine {
         match (&condition.operator, &condition.value) {
             (Operator::Eq, serde_json::Value::Bool(b)) => Ok(*b),
             (Operator::Contains, serde_json::Value::String(s)) => Ok(!s.is_empty()),
+            // Without a real field value we accept any threshold in the valid [0,1) range.
             (Operator::Gt, serde_json::Value::Number(n)) => {
-                Ok(n.as_f64().map_or(false, |v| v < 0.9))
+                Ok(n.as_f64().map_or(true, |v| v >= 0.0 && v < 1.0))
             }
+            (Operator::Lt, serde_json::Value::Number(n)) => {
+                Ok(n.as_f64().map_or(true, |v| v > 0.0))
+            }
+            (Operator::Gte, serde_json::Value::Number(n)) => {
+                Ok(n.as_f64().map_or(true, |v| v >= 0.0 && v <= 1.0))
+            }
+            (Operator::Lte, serde_json::Value::Number(n)) => {
+                Ok(n.as_f64().map_or(true, |v| v >= 0.0))
+            }
+            (Operator::In, serde_json::Value::Array(arr)) => Ok(!arr.is_empty()),
             _ => Ok(true),
         }
     }
@@ -246,22 +257,39 @@ impl LarqlEngine {
         for cond in conditions {
             let passes = match cond.field.as_str() {
                 "confidence_baseline" => match (&cond.operator, &cond.value) {
-                    (Operator::Gt, serde_json::Value::Number(n)) => {
-                        n.as_f64().map_or(false, |v| metadata.confidence_baseline > v)
-                    }
+                    (Operator::Gt,  serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.confidence_baseline > v),
+                    (Operator::Gte, serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.confidence_baseline >= v),
+                    (Operator::Lt,  serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.confidence_baseline < v),
+                    (Operator::Lte, serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.confidence_baseline <= v),
                     _ => true,
                 },
-                "larql_tags" => {
-                    if let Operator::Contains = cond.operator {
+                "ripple_effect_score" => match (&cond.operator, &cond.value) {
+                    (Operator::Gt,  serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.ripple_effect_score > v),
+                    (Operator::Gte, serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.ripple_effect_score >= v),
+                    (Operator::Lt,  serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.ripple_effect_score < v),
+                    (Operator::Lte, serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.ripple_effect_score <= v),
+                    _ => true,
+                },
+                "minimum_tier" => match (&cond.operator, &cond.value) {
+                    (Operator::Lte, serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.minimum_tier as f64 <= v),
+                    (Operator::Lt,  serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| (metadata.minimum_tier as f64) < v),
+                    (Operator::Eq,  serde_json::Value::Number(n)) => n.as_f64().map_or(true, |v| metadata.minimum_tier as f64 == v),
+                    _ => true,
+                },
+                "human_override_allowed" => match (&cond.operator, &cond.value) {
+                    (Operator::Eq, serde_json::Value::Bool(b)) => metadata.human_override_allowed == *b,
+                    _ => true,
+                },
+                "larql_tags" => match &cond.operator {
+                    Operator::Contains => {
                         if let serde_json::Value::String(tag) = &cond.value {
                             metadata.larql_tags.contains(tag)
                         } else {
                             false
                         }
-                    } else {
-                        true
                     }
-                }
+                    _ => true,
+                },
                 _ => true,
             };
             if !passes {

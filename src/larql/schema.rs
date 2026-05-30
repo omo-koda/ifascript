@@ -34,6 +34,51 @@ impl OdùCorpus {
         Self { entries: Vec::new() }
     }
 
+    /// Build a default corpus from the static ODU_SET, deriving metadata from each Odù's
+    /// tier, vessel, hermetic gate, and prescription data.
+    pub fn from_odu_set() -> Self {
+        use crate::odu::ODU_SET;
+
+        let entries = ODU_SET.iter().map(|odu| {
+            let sensitivity_level = match odu.tier {
+                1 => SensitivityLevel::Low,
+                2 => SensitivityLevel::Medium,
+                3 => SensitivityLevel::High,
+                _ => SensitivityLevel::Critical,
+            };
+            let confidence_baseline = match odu.tier {
+                1 => 0.92,
+                2 => 0.85,
+                _ => 0.78,
+            };
+            let larql_tags = vec![
+                odu.archetype.to_lowercase(),
+                odu.domain.to_lowercase(),
+                odu.hermetic_gate.to_string(),
+            ];
+            let larql_rules = odu.prescriptions.iter()
+                .map(|p| p.to_string())
+                .collect();
+
+            OdùMetadata {
+                odu_id: odu.index as u16,
+                name: odu.universal_name.to_string(),
+                minimum_tier: odu.tier,
+                sensitivity_level,
+                version: "1.0".to_string(),
+                confidence_baseline,
+                prescription_template: odu.vessel,
+                larql_tags,
+                larql_rules,
+                fractal_patterns: vec![odu.hermetic_gate.to_string()],
+                ripple_effect_score: confidence_baseline - 0.05,
+                human_override_allowed: odu.tier <= 2,
+            }
+        }).collect();
+
+        Self { entries }
+    }
+
     pub fn get(&self, odu_id: u16) -> Option<&OdùMetadata> {
         self.entries.iter().find(|e| e.odu_id == odu_id)
     }
