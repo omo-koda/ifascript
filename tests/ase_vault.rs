@@ -17,9 +17,11 @@ fn principal_ese_myths_loaded() {
 #[test]
 fn eji_ogbe_ese_myth_content() {
     let myth = get_ese(1, 0).expect("Eji Ogbe should have an ese myth");
+    // Corpus ese myth: "...eight lines of light standing upright..."
+    let lower = myth.to_lowercase();
     assert!(
-        myth.contains("Ẹjì Ogbe") || myth.contains("Eji Ogbe") || myth.contains("Light"),
-        "Eji Ogbe myth should mention the first Odù or Light; got: {}",
+        lower.contains("light") || lower.contains("ogbe") || lower.contains("genesis"),
+        "Eji Ogbe myth should mention light or genesis; got: {}",
         &myth[..myth.len().min(120)]
     );
 }

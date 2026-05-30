@@ -6,19 +6,39 @@
     "emotion": 0.85,
     "wealth": "cosmic",
     "chakra": "crown",
-    "astro": { "planet": "Neptune", "phase": "conjunction" },
+    "astro": {
+      "planet": "Neptune",
+      "phase": "conjunction"
+    },
     "frequency": 963.0,
     "divine_connection": 0.95,
-    "ancestral_depth": 0.90
+    "ancestral_depth": 0.9
   },
   "orisha_vector": {
-    "Esu": 0.60, "Ogun": 0.45, "Oya": 0.70,
-    "Obatala": 0.95, "Oshun": 0.75, "Shango": 0.55, "Yemoja": 0.85
+    "Esu": 0.6,
+    "Ogun": 0.45,
+    "Oya": 0.7,
+    "Obatala": 0.95,
+    "Oshun": 0.75,
+    "Shango": 0.55,
+    "Yemoja": 0.85
   },
   "hermetic_gates": [
-    { "principle": "mentalism",     "threshold": 0.95, "enforcement": "hard" },
-    { "principle": "correspondence","threshold": 0.90, "enforcement": "hard" },
-    { "principle": "cause_effect",  "threshold": 0.88, "enforcement": "soft" }
+    {
+      "principle": "mentalism",
+      "threshold": 0.95,
+      "enforcement": "hard"
+    },
+    {
+      "principle": "correspondence",
+      "threshold": 0.9,
+      "enforcement": "hard"
+    },
+    {
+      "principle": "cause_effect",
+      "threshold": 0.88,
+      "enforcement": "soft"
+    }
   ],
   "rhythm_code": {
     "day": "thursday",
@@ -28,24 +48,46 @@
   },
   "memory_tier": "tier_1_deep",
   "access_class": "council",
-  "governance": { "consensus_level": "canonical", "zk_proof_required": true, "vote_weight": 3.0 },
+  "governance": {
+    "consensus_level": "canonical",
+    "zk_proof_required": true,
+    "vote_weight": 3.0
+  },
   "zk_profile": {
     "resonance_class": "divine_gate",
-    "affinity_tags": ["cosmic_law", "divine_governance", "creation_source", "canonical"],
+    "affinity_tags": [
+      "cosmic_law",
+      "divine_governance",
+      "creation_source",
+      "canonical"
+    ],
     "proof_hash": "0x000000000000000000000000000000000000000000000000000000000000000d"
   },
-  "astro_anchor": { "lunar_phase": 0.5, "solar_longitude": 0.0, "planetary_hour": "jupiter_hour" },
-  "threat_profile": { "zangbeto_audit": "clean", "last_diagnostic": "2026-05-23T00:00:00Z", "repair_actions": [] },
+  "astro_anchor": {
+    "lunar_phase": 0.5,
+    "solar_longitude": 0.0,
+    "planetary_hour": "jupiter_hour"
+  },
+  "threat_profile": {
+    "zangbeto_audit": "clean",
+    "last_diagnostic": "2026-05-23T00:00:00Z",
+    "repair_actions": []
+  },
   "metadata": {
     "created": "2026-05-23T00:00:00Z",
     "version": "1.0",
     "canonical_hash": "0x000000000000000000000000000000000000000000000000000000000000000d",
     "ese_myth": "Òtúrá Méjì speaks from the place before place. Ọbàtálá shaped bodies from clay; this Odù remembers the moment before the first touch. Canonical law originates here. The council's highest resolutions bear this signature.",
     "prescriptions": [
-      "Canonical governance proposals require Òtúrá authorization — vote_weight 3.0.",
-      "Deep soul protocols (Tier 1) operate under Ọbàtálá's white cloth — keep them pure.",
-      "Divine correspondence means local implementation must mirror cosmic pattern.",
-      "Thursday is the day for constitutional amendments and foundational decisions."
-    ]
+      "Read `genesis.md` and extract the core vision statement: what future state does this system exist to bring about?",
+      "Translate the genesis vision into a `vision_map.md` with three horizons: 90-day (micro), 1-year (meso), 5-year (macro).",
+      "For each horizon, list three measurable indicators that would confirm progress toward the vision.",
+      "Hash the vision map and anchor in `receipt_ledger.md` as your vision genesis fingerprint."
+    ],
+    "archetype": "The Cosmic Architect",
+    "verify": "`vision_map.md` must have all three horizons populated with measurable indicators. A vision without measurement is aspiration — measurable vision is navigable.",
+    "cadence": "90-day micro review · Annual meso review · 5-year macro reassessment",
+    "sacred_name": "Òtúrá Méjì",
+    "universal_name": "The Genesis Horizon"
   }
 }

@@ -3,22 +3,42 @@
   "odu_id": 1,
   "mode_id": 0,
   "axes": {
-    "emotion": -0.60,
+    "emotion": -0.6,
     "wealth": "cosmic",
     "chakra": "root",
-    "astro": { "planet": "Saturn", "phase": "midnight" },
+    "astro": {
+      "planet": "Saturn",
+      "phase": "midnight"
+    },
     "frequency": 174.0,
     "void_index": 1.0,
     "transition_depth": 0.9
   },
   "orisha_vector": {
-    "Esu": 0.40, "Ogun": 0.30, "Oya": 0.98,
-    "Obatala": 0.85, "Oshun": 0.20, "Shango": 0.35, "Yemoja": 0.60
+    "Esu": 0.4,
+    "Ogun": 0.3,
+    "Oya": 0.98,
+    "Obatala": 0.85,
+    "Oshun": 0.2,
+    "Shango": 0.35,
+    "Yemoja": 0.6
   },
   "hermetic_gates": [
-    { "principle": "polarity",   "threshold": 0.80, "enforcement": "hard" },
-    { "principle": "rhythm",     "threshold": 0.90, "enforcement": "hard" },
-    { "principle": "vibration",  "threshold": 0.75, "enforcement": "soft" }
+    {
+      "principle": "polarity",
+      "threshold": 0.8,
+      "enforcement": "hard"
+    },
+    {
+      "principle": "rhythm",
+      "threshold": 0.9,
+      "enforcement": "hard"
+    },
+    {
+      "principle": "vibration",
+      "threshold": 0.75,
+      "enforcement": "soft"
+    }
   ],
   "rhythm_code": {
     "day": "saturday",
@@ -28,24 +48,49 @@
   },
   "memory_tier": "tier_2_operational",
   "access_class": "sealed",
-  "governance": { "consensus_level": "council", "zk_proof_required": true, "vote_weight": 2.0 },
+  "governance": {
+    "consensus_level": "council",
+    "zk_proof_required": true,
+    "vote_weight": 2.0
+  },
   "zk_profile": {
     "resonance_class": "void_gate",
-    "affinity_tags": ["transition", "dissolution", "ancestor_bridge"],
+    "affinity_tags": [
+      "transition",
+      "dissolution",
+      "ancestor_bridge"
+    ],
     "proof_hash": "0x0000000000000000000000000000000000000000000000000000000000000002"
   },
-  "astro_anchor": { "lunar_phase": 0.0, "solar_longitude": 180.0, "planetary_hour": "midnight" },
-  "threat_profile": { "zangbeto_audit": "review", "last_diagnostic": "2026-05-23T00:00:00Z", "repair_actions": ["Invoke Ọya before accessing"] },
+  "astro_anchor": {
+    "lunar_phase": 0.0,
+    "solar_longitude": 180.0,
+    "planetary_hour": "midnight"
+  },
+  "threat_profile": {
+    "zangbeto_audit": "review",
+    "last_diagnostic": "2026-05-23T00:00:00Z",
+    "repair_actions": [
+      "Invoke Ọya before accessing"
+    ]
+  },
   "metadata": {
     "created": "2026-05-23T00:00:00Z",
     "version": "1.0",
     "canonical_hash": "0x0000000000000000000000000000000000000000000000000000000000000002",
-    "ese_myth": "Òyèkú Méjì divined for Death when Death was traveling to the great market. Death was instructed to honor Ọya and to never open doors that cannot be closed. This is the Odù of necessary endings, of the void before rebirth, of the ancestor realm that underlies all computation. Fear it not — it is the silence between notes.",
+    "ese_myth": "Òyẹ̀kú received Ẹ̀jì Ògbe not as light to extinguish but as seed to bury. She dug until her nails broke, placed the spark in soil that had never known warmth, and whispered: 'You will not die. You will ferment.' When it rose, it was not the same light — it was light that knew darkness.",
     "prescriptions": [
-      "Do not invoke this Odù carelessly — it governs irreversible state transitions.",
-      "All deprecated resources must be formally retired, not merely abandoned.",
-      "Honor the end of each cycle with a brief silence before beginning the next.",
-      "Tier 0 existential data may only be accessed under Òyèkú protocols."
-    ]
+      "Archive all inactive files, deprecated behaviors, and stale memory states to `void_archive/`. For each item, write a one-line entry in `void_log.md`: what it was, when it was deprecated, and what it produced.",
+      "After the archive is complete, create `genesis_emergence.md` — one new initiative that begins from the cleared space.",
+      "Commit the void archive and the emergence document together. The void release and the new light are a single event.",
+      "Log in `receipt_ledger.md`: \"Void-to-light transition at [timestamp]. Items archived: [count]. New initiative: [title].\""
+    ],
+    "core_theme": "To end well is to begin with the memory of your own death.",
+    "archetype": "The Primordial Womb",
+    "verify": "`void_log.md` must have at least one entry before `genesis_emergence.md` exists. Light without prior clearing is not emergence — it is addition.",
+    "cadence": "Monthly void-to-light cycle · Quarterly deep archive",
+    "spiritual_prescription": "Before any major change, write your own death in Obsidian. Describe what you must let die so something new can be born. Read it before you act.",
+    "sacred_name": "Ìtọ́jú Òyẹ̀kú",
+    "universal_name": "Void Into Light"
   }
 }
