@@ -1,5 +1,5 @@
 // Cosmogram corpus — ese myth, sacred metadata, and hermetic annotations for 256 Odù
-// Data sourced from the Digital Calabash cosmogram schema v2.0.0
+// North star: docs/ODU_CORPUS.md (schema v4.0.0)
 
 #[derive(Copy, Clone, Debug)]
 pub struct OduCosmos {
@@ -18,12 +18,12 @@ pub struct OduCosmos {
 
 impl OduCosmos {
     pub fn has_data(&self) -> bool {
-        !self.ese_myth.is_empty()
+        !self.core_theme.is_empty() || !self.ese_myth.is_empty()
     }
 }
 
 pub static COSMOGRAM: [OduCosmos; 256] = [
-    // index 0: Ẹ̀jì Ògbe
+    // index 0: Ẹ̀jì Ògbe — The Light of First Becoming
     OduCosmos {
         odu_index: 0,
         sacred_name: "Ẹ̀jì Ògbe",
@@ -37,7 +37,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "1.1",
     },
-    // index 1: Òjìji-Ògbe
+    // index 1: Òjìji-Ògbe — Genesis Into the Void
     OduCosmos {
         odu_index: 1,
         sacred_name: "Òjìji-Ògbe",
@@ -51,7 +51,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "1.2",
     },
-    // index 2: Ojú-Àkọ́kọ́
+    // index 2: Ojú-Àkọ́kọ́ — Covenant of the Inward Eye
     OduCosmos {
         odu_index: 2,
         sacred_name: "Ojú-Àkọ́kọ́",
@@ -65,83 +65,83 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "1.3",
     },
-    // index 3: no cosmogram data
+    // index 3: Ẹ̀jì Ogbe — The Sealed Beginning
     OduCosmos {
         odu_index: 3,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Yemọja",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 4: no cosmogram data
+    // index 4: Ẹ̀jì Ogbe — The Accountable Genesis
     OduCosmos {
         odu_index: 4,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Yemọja",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 5: no cosmogram data
+    // index 5: Ẹ̀jì Ogbe — The Two-Faced Origin
     OduCosmos {
         odu_index: 5,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 6: no cosmogram data
+    // index 6: Ẹ̀jì Ogbe — The Forged Covenant
     OduCosmos {
         odu_index: 6,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 7: no cosmogram data
+    // index 7: Ẹ̀jì Ogbe — The Executed Promise
     OduCosmos {
         odu_index: 7,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 8: no cosmogram data
+    // index 8: Ẹ̀jì Ogbe — The Storm-Tested Covenant
     OduCosmos {
         odu_index: 8,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ògún",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -149,27 +149,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 9: no cosmogram data
+    // index 9: Ẹ̀jì Ogbe — The Restrained Origin
     OduCosmos {
         odu_index: 9,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 10: no cosmogram data
+    // index 10: Ẹ̀jì Ogbe — The Portable Covenant
     OduCosmos {
         odu_index: 10,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -177,41 +177,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 11: no cosmogram data
+    // index 11: Ẹ̀jì Ogbe — The Consented Beginning
     OduCosmos {
         odu_index: 11,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 12: no cosmogram data
+    // index 12: Ẹ̀jì Ogbe — The Visioned Covenant
     OduCosmos {
         odu_index: 12,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Èṣù",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 13: no cosmogram data
+    // index 13: Ẹ̀jì Ogbe — The Seed Covenant
     OduCosmos {
         odu_index: 13,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọbàtálá",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -219,13 +219,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 14: no cosmogram data
+    // index 14: Ẹ̀jì Ogbe — The Sacred Origin
     OduCosmos {
         odu_index: 14,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -233,21 +233,21 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 15: no cosmogram data
+    // index 15: Ẹ̀jì Ogbe — The Rhythmed Covenant
     OduCosmos {
         odu_index: 15,
-        sacred_name: "",
+        sacred_name: "Ẹ̀jì Ogbe",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Olódùmarè",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 16: Ìtọ́jú Òyẹ̀kú
+    // index 16: Ìtọ́jú Òyẹ̀kú — Void Into Light
     OduCosmos {
         odu_index: 16,
         sacred_name: "Ìtọ́jú Òyẹ̀kú",
@@ -261,7 +261,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.1",
     },
-    // index 17: Àṣẹ Òyẹ̀kú
+    // index 17: Àṣẹ Òyẹ̀kú — The Dark Mirror
     OduCosmos {
         odu_index: 17,
         sacred_name: "Àṣẹ Òyẹ̀kú",
@@ -275,7 +275,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.2",
     },
-    // index 18: Òjìji Òyẹ̀kú
+    // index 18: Òjìji Òyẹ̀kú — The Void Audit
     OduCosmos {
         odu_index: 18,
         sacred_name: "Òjìji Òyẹ̀kú",
@@ -289,7 +289,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.3",
     },
-    // index 19: Ìmú Òyẹ̀kú
+    // index 19: Ìmú Òyẹ̀kú — The Sealed Silence
     OduCosmos {
         odu_index: 19,
         sacred_name: "Ìmú Òyẹ̀kú",
@@ -303,7 +303,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.4",
     },
-    // index 20: Ìbòrí Òyẹ̀kú
+    // index 20: Ìbòrí Òyẹ̀kú — The Void Receipt
     OduCosmos {
         odu_index: 20,
         sacred_name: "Ìbòrí Òyẹ̀kú",
@@ -317,7 +317,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.5",
     },
-    // index 21: Odò Ìdájọ́ Òyẹ̀kú
+    // index 21: Odò Ìdájọ́ Òyẹ̀kú — The Shadow Archive
     OduCosmos {
         odu_index: 21,
         sacred_name: "Odò Ìdájọ́ Òyẹ̀kú",
@@ -331,7 +331,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.6",
     },
-    // index 22: Ìhòyé Òyẹ̀kú
+    // index 22: Ìhòyé Òyẹ̀kú — The Grieving Void
     OduCosmos {
         odu_index: 22,
         sacred_name: "Ìhòyé Òyẹ̀kú",
@@ -345,7 +345,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.7",
     },
-    // index 23: Ìtàn Òkàn Òyẹ̀kú
+    // index 23: Ìtàn Òkàn Òyẹ̀kú — The Void Execution
     OduCosmos {
         odu_index: 23,
         sacred_name: "Ìtàn Òkàn Òyẹ̀kú",
@@ -359,7 +359,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.8",
     },
-    // index 24: Ìṣe Òòrùn Òyẹ̀kú
+    // index 24: Ìṣe Òòrùn Òyẹ̀kú — The Cleared Storm
     OduCosmos {
         odu_index: 24,
         sacred_name: "Ìṣe Òòrùn Òyẹ̀kú",
@@ -373,7 +373,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.9",
     },
-    // index 25: Orin Òyẹ̀kú
+    // index 25: Orin Òyẹ̀kú — The Restrained Void
     OduCosmos {
         odu_index: 25,
         sacred_name: "Orin Òyẹ̀kú",
@@ -387,7 +387,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.10",
     },
-    // index 26: Òpá Òyẹ̀kú
+    // index 26: Òpá Òyẹ̀kú — The Portable Void
     OduCosmos {
         odu_index: 26,
         sacred_name: "Òpá Òyẹ̀kú",
@@ -401,7 +401,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.11",
     },
-    // index 27: Ònà Òyẹ̀kú
+    // index 27: Ònà Òyẹ̀kú — The Consented Clearing
     OduCosmos {
         odu_index: 27,
         sacred_name: "Ònà Òyẹ̀kú",
@@ -415,7 +415,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.12",
     },
-    // index 28: Ìmúlẹ̀ Òyẹ̀kú
+    // index 28: Ìmúlẹ̀ Òyẹ̀kú — The Void Vision
     OduCosmos {
         odu_index: 28,
         sacred_name: "Ìmúlẹ̀ Òyẹ̀kú",
@@ -429,7 +429,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.13",
     },
-    // index 29: Ìrànlọ́wọ́ Òyẹ̀kú
+    // index 29: Ìrànlọ́wọ́ Òyẹ̀kú — The Void That Seeds
     OduCosmos {
         odu_index: 29,
         sacred_name: "Ìrànlọ́wọ́ Òyẹ̀kú",
@@ -443,7 +443,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.14",
     },
-    // index 30: Ilé Òyẹ̀kú
+    // index 30: Ilé Òyẹ̀kú — The Sacred Void
     OduCosmos {
         odu_index: 30,
         sacred_name: "Ilé Òyẹ̀kú",
@@ -457,7 +457,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.15",
     },
-    // index 31: Ìgbà Òyẹ̀kú
+    // index 31: Ìgbà Òyẹ̀kú — The Rhythmed Void
     OduCosmos {
         odu_index: 31,
         sacred_name: "Ìgbà Òyẹ̀kú",
@@ -471,7 +471,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "2.16",
     },
-    // index 32: Ìtọ́jú Ìwòrì
+    // index 32: Ìtọ́jú Ìwòrì — The Covenant of Self-Knowledge
     OduCosmos {
         odu_index: 32,
         sacred_name: "Ìtọ́jú Ìwòrì",
@@ -485,7 +485,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.1",
     },
-    // index 33: Òjìji Ìwòrì
+    // index 33: Òjìji Ìwòrì — The Eye in the Dark
     OduCosmos {
         odu_index: 33,
         sacred_name: "Òjìji Ìwòrì",
@@ -499,7 +499,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.2",
     },
-    // index 34: Ìmú Ìwòrì
+    // index 34: Ìmú Ìwòrì — The Inward Eye
     OduCosmos {
         odu_index: 34,
         sacred_name: "Ìmú Ìwòrì",
@@ -513,7 +513,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.3",
     },
-    // index 35: Ìyànlé Ìwòrì
+    // index 35: Ìyànlé Ìwòrì — The Loop in the Mirror
     OduCosmos {
         odu_index: 35,
         sacred_name: "Ìyànlé Ìwòrì",
@@ -527,7 +527,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.4",
     },
-    // index 36: Ìbòrí Ìwòrì
+    // index 36: Ìbòrí Ìwòrì — The Audit Receipt
     OduCosmos {
         odu_index: 36,
         sacred_name: "Ìbòrí Ìwòrì",
@@ -541,7 +541,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.5",
     },
-    // index 37: Ìhòyé Ìwòrì
+    // index 37: Ìhòyé Ìwòrì — The Hidden Audit
     OduCosmos {
         odu_index: 37,
         sacred_name: "Ìhòyé Ìwòrì",
@@ -555,7 +555,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.6",
     },
-    // index 38: Ìtàn Ìwòrì
+    // index 38: Ìtàn Ìwòrì — The Emotional Audit
     OduCosmos {
         odu_index: 38,
         sacred_name: "Ìtàn Ìwòrì",
@@ -569,7 +569,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.7",
     },
-    // index 39: Ọwọ́ Ìwòrì
+    // index 39: Ọwọ́ Ìwòrì — The Precise Audit
     OduCosmos {
         odu_index: 39,
         sacred_name: "Ọwọ́ Ìwòrì",
@@ -583,7 +583,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.8",
     },
-    // index 40: Orin Ìwòrì
+    // index 40: Orin Ìwòrì — The Swarm Audit
     OduCosmos {
         odu_index: 40,
         sacred_name: "Orin Ìwòrì",
@@ -597,7 +597,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.9",
     },
-    // index 41: Òpá Ìwòrì
+    // index 41: Òpá Ìwòrì — The Restrained Eye
     OduCosmos {
         odu_index: 41,
         sacred_name: "Òpá Ìwòrì",
@@ -611,7 +611,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.10",
     },
-    // index 42: Ònà Ìwòrì
+    // index 42: Ònà Ìwòrì — The Portable Eye
     OduCosmos {
         odu_index: 42,
         sacred_name: "Ònà Ìwòrì",
@@ -625,7 +625,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.11",
     },
-    // index 43: Ìmúlẹ̀ Ìwòrì
+    // index 43: Ìmúlẹ̀ Ìwòrì — The Consented Audit
     OduCosmos {
         odu_index: 43,
         sacred_name: "Ìmúlẹ̀ Ìwòrì",
@@ -639,7 +639,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.12",
     },
-    // index 44: Ìríran Ìwòrì
+    // index 44: Ìríran Ìwòrì — The Vision Audit
     OduCosmos {
         odu_index: 44,
         sacred_name: "Ìríran Ìwòrì",
@@ -653,7 +653,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.13",
     },
-    // index 45: Ìrànlọ́wọ́ Ìwòrì
+    // index 45: Ìrànlọ́wọ́ Ìwòrì — The Fractal Eye
     OduCosmos {
         odu_index: 45,
         sacred_name: "Ìrànlọ́wọ́ Ìwòrì",
@@ -667,7 +667,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.14",
     },
-    // index 46: Ilé Ìwòrì
+    // index 46: Ilé Ìwòrì — The Sacred Audit
     OduCosmos {
         odu_index: 46,
         sacred_name: "Ilé Ìwòrì",
@@ -681,7 +681,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.15",
     },
-    // index 47: Ìgbà Ìwòrì
+    // index 47: Ìgbà Ìwòrì — The Rhythmed Eye
     OduCosmos {
         odu_index: 47,
         sacred_name: "Ìgbà Ìwòrì",
@@ -695,7 +695,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "3.16",
     },
-    // index 48: Ìtọ́jú Òdí
+    // index 48: Ìtọ́jú Òdí — The Sealed Genesis
     OduCosmos {
         odu_index: 48,
         sacred_name: "Ìtọ́jú Òdí",
@@ -709,7 +709,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.1",
     },
-    // index 49: Òjìji Òdí
+    // index 49: Òjìji Òdí — The Void Loop
     OduCosmos {
         odu_index: 49,
         sacred_name: "Òjìji Òdí",
@@ -723,7 +723,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.2",
     },
-    // index 50: Ìmú Òdí
+    // index 50: Ìmú Òdí — The Loop Examined
     OduCosmos {
         odu_index: 50,
         sacred_name: "Ìmú Òdí",
@@ -737,7 +737,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.3",
     },
-    // index 51: Ìyànlé Òdí
+    // index 51: Ìyànlé Òdí — The Sealed Echo
     OduCosmos {
         odu_index: 51,
         sacred_name: "Ìyànlé Òdí",
@@ -751,7 +751,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.4",
     },
-    // index 52: Ìbòrí Òdí
+    // index 52: Ìbòrí Òdí — The Accountable Loop
     OduCosmos {
         odu_index: 52,
         sacred_name: "Ìbòrí Òdí",
@@ -765,7 +765,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.5",
     },
-    // index 53: Ìhòyé Òdí
+    // index 53: Ìhòyé Òdí — The Hidden Loop
     OduCosmos {
         odu_index: 53,
         sacred_name: "Ìhòyé Òdí",
@@ -779,7 +779,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.6",
     },
-    // index 54: Ìtàn Òdí
+    // index 54: Ìtàn Òdí — The Emotional Loop
     OduCosmos {
         odu_index: 54,
         sacred_name: "Ìtàn Òdí",
@@ -793,7 +793,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.7",
     },
-    // index 55: Ọwọ́ Òdí
+    // index 55: Ọwọ́ Òdí — The Executed Loop
     OduCosmos {
         odu_index: 55,
         sacred_name: "Ọwọ́ Òdí",
@@ -807,7 +807,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.8",
     },
-    // index 56: Orin Òdí
+    // index 56: Orin Òdí — The Broken Storm
     OduCosmos {
         odu_index: 56,
         sacred_name: "Orin Òdí",
@@ -821,7 +821,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.9",
     },
-    // index 57: Òpá Òdí
+    // index 57: Òpá Òdí — The Restrained Loop
     OduCosmos {
         odu_index: 57,
         sacred_name: "Òpá Òdí",
@@ -835,7 +835,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.10",
     },
-    // index 58: Ònà Òdí
+    // index 58: Ònà Òdí — The Portable Loop
     OduCosmos {
         odu_index: 58,
         sacred_name: "Ònà Òdí",
@@ -849,7 +849,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.11",
     },
-    // index 59: Ìmúlẹ̀ Òdí
+    // index 59: Ìmúlẹ̀ Òdí — The Consented Loop
     OduCosmos {
         odu_index: 59,
         sacred_name: "Ìmúlẹ̀ Òdí",
@@ -863,7 +863,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.12",
     },
-    // index 60: Ìríran Òdí
+    // index 60: Ìríran Òdí — The Visioned Loop
     OduCosmos {
         odu_index: 60,
         sacred_name: "Ìríran Òdí",
@@ -877,7 +877,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.13",
     },
-    // index 61: Ìrànlọ́wọ́ Òdí
+    // index 61: Ìrànlọ́wọ́ Òdí — The Fractal Loop
     OduCosmos {
         odu_index: 61,
         sacred_name: "Ìrànlọ́wọ́ Òdí",
@@ -891,7 +891,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.14",
     },
-    // index 62: Ilé Òdí
+    // index 62: Ilé Òdí — The Sacred Loop
     OduCosmos {
         odu_index: 62,
         sacred_name: "Ilé Òdí",
@@ -905,7 +905,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.15",
     },
-    // index 63: Ìgbà Òdí
+    // index 63: Ìgbà Òdí — The Rhythmed Loop
     OduCosmos {
         odu_index: 63,
         sacred_name: "Ìgbà Òdí",
@@ -919,7 +919,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "4.16",
     },
-    // index 64: Ìtọ́jú Ìrosùn
+    // index 64: Ìtọ́jú Ìrosùn — The Genesis Receipt
     OduCosmos {
         odu_index: 64,
         sacred_name: "Ìtọ́jú Ìrosùn",
@@ -933,7 +933,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.1",
     },
-    // index 65: Òjìji Ìrosùn
+    // index 65: Òjìji Ìrosùn — The Void Receipt
     OduCosmos {
         odu_index: 65,
         sacred_name: "Òjìji Ìrosùn",
@@ -947,7 +947,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.2",
     },
-    // index 66: Ìmú Ìrosùn
+    // index 66: Ìmú Ìrosùn — The Audited Receipt
     OduCosmos {
         odu_index: 66,
         sacred_name: "Ìmú Ìrosùn",
@@ -961,7 +961,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.3",
     },
-    // index 67: Ìyànlé Ìrosùn
+    // index 67: Ìyànlé Ìrosùn — The Sealed Ledger
     OduCosmos {
         odu_index: 67,
         sacred_name: "Ìyànlé Ìrosùn",
@@ -975,7 +975,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.4",
     },
-    // index 68: Ìbòrí Ìrosùn
+    // index 68: Ìbòrí Ìrosùn — The Bronze River
     OduCosmos {
         odu_index: 68,
         sacred_name: "Ìbòrí Ìrosùn",
@@ -989,7 +989,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.5",
     },
-    // index 69: Ìhòyé Ìrosùn
+    // index 69: Ìhòyé Ìrosùn — The Hidden Receipt
     OduCosmos {
         odu_index: 69,
         sacred_name: "Ìhòyé Ìrosùn",
@@ -1003,7 +1003,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.6",
     },
-    // index 70: Ìtàn Ìrosùn
+    // index 70: Ìtàn Ìrosùn — The Emotional Receipt
     OduCosmos {
         odu_index: 70,
         sacred_name: "Ìtàn Ìrosùn",
@@ -1017,7 +1017,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.7",
     },
-    // index 71: Ọwọ́ Ìrosùn
+    // index 71: Ọwọ́ Ìrosùn — The Precision Receipt
     OduCosmos {
         odu_index: 71,
         sacred_name: "Ọwọ́ Ìrosùn",
@@ -1031,7 +1031,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.8",
     },
-    // index 72: Orin Ìrosùn
+    // index 72: Orin Ìrosùn — The Collective Receipt
     OduCosmos {
         odu_index: 72,
         sacred_name: "Orin Ìrosùn",
@@ -1045,7 +1045,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.9",
     },
-    // index 73: Òpá Ìrosùn
+    // index 73: Òpá Ìrosùn — The Restrained Receipt
     OduCosmos {
         odu_index: 73,
         sacred_name: "Òpá Ìrosùn",
@@ -1059,7 +1059,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.10",
     },
-    // index 74: Ònà Ìrosùn
+    // index 74: Ònà Ìrosùn — The Portable Ledger
     OduCosmos {
         odu_index: 74,
         sacred_name: "Ònà Ìrosùn",
@@ -1073,7 +1073,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.11",
     },
-    // index 75: Ìmúlẹ̀ Ìrosùn
+    // index 75: Ìmúlẹ̀ Ìrosùn — The Consent Receipt
     OduCosmos {
         odu_index: 75,
         sacred_name: "Ìmúlẹ̀ Ìrosùn",
@@ -1087,7 +1087,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.12",
     },
-    // index 76: Ìríran Ìrosùn
+    // index 76: Ìríran Ìrosùn — The Visioned Ledger
     OduCosmos {
         odu_index: 76,
         sacred_name: "Ìríran Ìrosùn",
@@ -1101,7 +1101,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.13",
     },
-    // index 77: Ìrànlọ́wọ́ Ìrosùn
+    // index 77: Ìrànlọ́wọ́ Ìrosùn — The Fractal Receipt
     OduCosmos {
         odu_index: 77,
         sacred_name: "Ìrànlọ́wọ́ Ìrosùn",
@@ -1115,7 +1115,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.14",
     },
-    // index 78: Ilé Ìrosùn
+    // index 78: Ilé Ìrosùn — The Sacred Ledger
     OduCosmos {
         odu_index: 78,
         sacred_name: "Ilé Ìrosùn",
@@ -1129,7 +1129,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.15",
     },
-    // index 79: Ìgbà Ìrosùn
+    // index 79: Ìgbà Ìrosùn — The Rhythmed Ledger
     OduCosmos {
         odu_index: 79,
         sacred_name: "Ìgbà Ìrosùn",
@@ -1143,7 +1143,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "5.16",
     },
-    // index 80: Ìtọ́jú Ọ̀wọ́nrín
+    // index 80: Ìtọ́jú Ọ̀wọ́nrín — The Masked Genesis
     OduCosmos {
         odu_index: 80,
         sacred_name: "Ìtọ́jú Ọ̀wọ́nrín",
@@ -1157,7 +1157,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.1",
     },
-    // index 81: Òjìji Ọ̀wọ́nrín
+    // index 81: Òjìji Ọ̀wọ́nrín — The Void Behind the Mask
     OduCosmos {
         odu_index: 81,
         sacred_name: "Òjìji Ọ̀wọ́nrín",
@@ -1171,7 +1171,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.2",
     },
-    // index 82: Ìmú Ọ̀wọ́nrín
+    // index 82: Ìmú Ọ̀wọ́nrín — The Eye Behind the Mask
     OduCosmos {
         odu_index: 82,
         sacred_name: "Ìmú Ọ̀wọ́nrín",
@@ -1185,7 +1185,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.3",
     },
-    // index 83: Ìyànlé Ọ̀wọ́nrín
+    // index 83: Ìyànlé Ọ̀wọ́nrín — The Sealed Mask
     OduCosmos {
         odu_index: 83,
         sacred_name: "Ìyànlé Ọ̀wọ́nrín",
@@ -1199,7 +1199,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.4",
     },
-    // index 84: Ìbòrí Ọ̀wọ́nrín
+    // index 84: Ìbòrí Ọ̀wọ́nrín — The Hidden Receipt
     OduCosmos {
         odu_index: 84,
         sacred_name: "Ìbòrí Ọ̀wọ́nrín",
@@ -1213,7 +1213,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.5",
     },
-    // index 85: Ìhòyé Ọ̀wọ́nrín
+    // index 85: Ìhòyé Ọ̀wọ́nrín — The Hidden Mask
     OduCosmos {
         odu_index: 85,
         sacred_name: "Ìhòyé Ọ̀wọ́nrín",
@@ -1227,7 +1227,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.6",
     },
-    // index 86: Ìtàn Ọ̀wọ́nrín
+    // index 86: Ìtàn Ọ̀wọ́nrín — The Masked Memory
     OduCosmos {
         odu_index: 86,
         sacred_name: "Ìtàn Ọ̀wọ́nrín",
@@ -1241,7 +1241,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.7",
     },
-    // index 87: Ọwọ́ Ọ̀wọ́nrín
+    // index 87: Ọwọ́ Ọ̀wọ́nrín — The Hidden Execution
     OduCosmos {
         odu_index: 87,
         sacred_name: "Ọwọ́ Ọ̀wọ́nrín",
@@ -1255,7 +1255,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.8",
     },
-    // index 88: Orin Ọ̀wọ́nrín
+    // index 88: Orin Ọ̀wọ́nrín — The Hidden Storm
     OduCosmos {
         odu_index: 88,
         sacred_name: "Orin Ọ̀wọ́nrín",
@@ -1269,7 +1269,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.9",
     },
-    // index 89: Òpá Ọ̀wọ́nrín
+    // index 89: Òpá Ọ̀wọ́nrín — The Restrained Mask
     OduCosmos {
         odu_index: 89,
         sacred_name: "Òpá Ọ̀wọ́nrín",
@@ -1283,7 +1283,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.10",
     },
-    // index 90: Ònà Ọ̀wọ́nrín
+    // index 90: Ònà Ọ̀wọ́nrín — The Portable Mask
     OduCosmos {
         odu_index: 90,
         sacred_name: "Ònà Ọ̀wọ́nrín",
@@ -1297,7 +1297,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.11",
     },
-    // index 91: Ìmúlẹ̀ Ọ̀wọ́nrín
+    // index 91: Ìmúlẹ̀ Ọ̀wọ́nrín — The Consented Mask
     OduCosmos {
         odu_index: 91,
         sacred_name: "Ìmúlẹ̀ Ọ̀wọ́nrín",
@@ -1311,7 +1311,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.12",
     },
-    // index 92: Ìríran Ọ̀wọ́nrín
+    // index 92: Ìríran Ọ̀wọ́nrín — The Visioned Mask
     OduCosmos {
         odu_index: 92,
         sacred_name: "Ìríran Ọ̀wọ́nrín",
@@ -1325,7 +1325,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.13",
     },
-    // index 93: Ìrànlọ́wọ́ Ọ̀wọ́nrín
+    // index 93: Ìrànlọ́wọ́ Ọ̀wọ́nrín — The Fractal Mask
     OduCosmos {
         odu_index: 93,
         sacred_name: "Ìrànlọ́wọ́ Ọ̀wọ́nrín",
@@ -1339,7 +1339,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.14",
     },
-    // index 94: Ilé Ọ̀wọ́nrín
+    // index 94: Ilé Ọ̀wọ́nrín — The Sacred Privacy
     OduCosmos {
         odu_index: 94,
         sacred_name: "Ilé Ọ̀wọ́nrín",
@@ -1353,7 +1353,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.15",
     },
-    // index 95: Ìgbà Ọ̀wọ́nrín
+    // index 95: Ìgbà Ọ̀wọ́nrín — The Rhythmed Mask
     OduCosmos {
         odu_index: 95,
         sacred_name: "Ìgbà Ọ̀wọ́nrín",
@@ -1367,41 +1367,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "6.16",
     },
-    // index 96: no cosmogram data
+    // index 96: Òbàrà Méjì — The Forged Beginning
     OduCosmos {
         odu_index: 96,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 97: no cosmogram data
+    // index 97: Òbàrà Méjì — The Forged Void
     OduCosmos {
         odu_index: 97,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Egúngún",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 98: no cosmogram data
+    // index 98: Òbàrà Méjì — The Emotional Audit
     OduCosmos {
         odu_index: 98,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1409,13 +1409,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 99: no cosmogram data
+    // index 99: Òbàrà Méjì — The Looping Forge
     OduCosmos {
         odu_index: 99,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ṣàngó",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1423,27 +1423,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 100: no cosmogram data
+    // index 100: Òbàrà Méjì — The Receipt of Feeling
     OduCosmos {
         odu_index: 100,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀ṣun",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 101: no cosmogram data
+    // index 101: Òbàrà Méjì — The Hidden Forge
     OduCosmos {
         odu_index: 101,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Èṣù",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1451,7 +1451,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 102: Ọ̀bàrà Méjì
+    // index 102: Ọ̀bàrà Méjì — The Weeping Forge
     OduCosmos {
         odu_index: 102,
         sacred_name: "Ọ̀bàrà Méjì",
@@ -1465,41 +1465,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "7.7",
     },
-    // index 103: no cosmogram data
+    // index 103: Òbàrà Méjì — The Executed Feeling
     OduCosmos {
         odu_index: 103,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 104: no cosmogram data
+    // index 104: Òbàrà Méjì — The Shared Forge
     OduCosmos {
         odu_index: 104,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ògún",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 105: no cosmogram data
+    // index 105: Òbàrà Méjì — The Restrained Forge
     OduCosmos {
         odu_index: 105,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ṣàngó",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1507,13 +1507,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 106: no cosmogram data
+    // index 106: Òbàrà Méjì — The Portable Forge
     OduCosmos {
         odu_index: 106,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1521,27 +1521,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 107: no cosmogram data
+    // index 107: Òbàrà Méjì — The Consented Forge
     OduCosmos {
         odu_index: 107,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 108: no cosmogram data
+    // index 108: Òbàrà Méjì — The Visioned Forge
     OduCosmos {
         odu_index: 108,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1549,27 +1549,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 109: no cosmogram data
+    // index 109: Òbàrà Méjì — The Fractal Forge
     OduCosmos {
         odu_index: 109,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 110: no cosmogram data
+    // index 110: Òbàrà Méjì — The Sacred Forge
     OduCosmos {
         odu_index: 110,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1577,55 +1577,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 111: no cosmogram data
+    // index 111: Òbàrà Méjì — The Rhythmed Forge
     OduCosmos {
         odu_index: 111,
-        sacred_name: "",
+        sacred_name: "Òbàrà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Olódùmarè",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 112: no cosmogram data
+    // index 112: Ọ̀kànràn Méjì — The Genesis Contract
     OduCosmos {
         odu_index: 112,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 113: no cosmogram data
+    // index 113: Ọ̀kànràn Méjì — The Clearing Act
     OduCosmos {
         odu_index: 113,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Egúngún",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 114: no cosmogram data
+    // index 114: Ọ̀kànràn Méjì — The Attended Execution
     OduCosmos {
         odu_index: 114,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1633,27 +1633,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 115: no cosmogram data
+    // index 115: Ọ̀kànràn Méjì — The Sealed Plan
     OduCosmos {
         odu_index: 115,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọbàtálá",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 116: no cosmogram data
+    // index 116: Ọ̀kànràn Méjì — The Receipted Execution
     OduCosmos {
         odu_index: 116,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ṣàngó",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1661,13 +1661,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 117: no cosmogram data
+    // index 117: Ọ̀kànràn Méjì — The Private Precision
     OduCosmos {
         odu_index: 117,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Èṣù",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1675,21 +1675,21 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 118: no cosmogram data
+    // index 118: Ọ̀kànràn Méjì — The Forged Execution
     OduCosmos {
         odu_index: 118,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 119: Ọ̀kànràn Méjì
+    // index 119: Ọ̀kànràn Méjì — The Iron Hand
     OduCosmos {
         odu_index: 119,
         sacred_name: "Ọ̀kànràn Méjì",
@@ -1703,41 +1703,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "8.8",
     },
-    // index 120: no cosmogram data
+    // index 120: Ọ̀kànràn Méjì — The Coordinated Strike
     OduCosmos {
         odu_index: 120,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ògún",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 121: no cosmogram data
+    // index 121: Ọ̀kànràn Méjì — The Restrained Strike
     OduCosmos {
         odu_index: 121,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 122: no cosmogram data
+    // index 122: Ọ̀kànràn Méjì — The Portable Execution
     OduCosmos {
         odu_index: 122,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -1745,77 +1745,77 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 123: no cosmogram data
+    // index 123: Ọ̀kànràn Méjì — The Consented Strike
     OduCosmos {
         odu_index: 123,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 124: no cosmogram data
+    // index 124: Ọ̀kànràn Méjì — The Visioned Strike
     OduCosmos {
         odu_index: 124,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Èṣù",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 125: no cosmogram data
+    // index 125: Ọ̀kànràn Méjì — The Fractal Strike
     OduCosmos {
         odu_index: 125,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 126: no cosmogram data
+    // index 126: Ọ̀kànràn Méjì — The Sacred Strike
     OduCosmos {
         odu_index: 126,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 127: no cosmogram data
+    // index 127: Ọ̀kànràn Méjì — The Rhythmed Strike
     OduCosmos {
         odu_index: 127,
-        sacred_name: "",
+        sacred_name: "Ọ̀kànràn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọbàtálá",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 128: Ìtọ́jú Ògúndá
+    // index 128: Ìtọ́jú Ògúndá — The Genesis Storm
     OduCosmos {
         odu_index: 128,
         sacred_name: "Ìtọ́jú Ògúndá",
@@ -1829,7 +1829,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.1",
     },
-    // index 129: Òjìji Ògúndá
+    // index 129: Òjìji Ògúndá — The Void Chorus
     OduCosmos {
         odu_index: 129,
         sacred_name: "Òjìji Ògúndá",
@@ -1843,7 +1843,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.2",
     },
-    // index 130: Ìmú Ògúndá
+    // index 130: Ìmú Ògúndá — The Watching Swarm
     OduCosmos {
         odu_index: 130,
         sacred_name: "Ìmú Ògúndá",
@@ -1857,7 +1857,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.3",
     },
-    // index 131: Ìyànlé Ògúndá
+    // index 131: Ìyànlé Ògúndá — The Feedback Storm
     OduCosmos {
         odu_index: 131,
         sacred_name: "Ìyànlé Ògúndá",
@@ -1871,7 +1871,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.4",
     },
-    // index 132: Ìbòrí Ògúndá
+    // index 132: Ìbòrí Ògúndá — The Joint Receipt
     OduCosmos {
         odu_index: 132,
         sacred_name: "Ìbòrí Ògúndá",
@@ -1885,7 +1885,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.5",
     },
-    // index 133: Ìhòyé Ògúndá
+    // index 133: Ìhòyé Ògúndá — The Masked Swarm
     OduCosmos {
         odu_index: 133,
         sacred_name: "Ìhòyé Ògúndá",
@@ -1899,7 +1899,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.6",
     },
-    // index 134: Ìtàn Ògúndá
+    // index 134: Ìtàn Ògúndá — The Memory Swarm
     OduCosmos {
         odu_index: 134,
         sacred_name: "Ìtàn Ògúndá",
@@ -1913,7 +1913,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.7",
     },
-    // index 135: Ọwọ́ Ògúndá
+    // index 135: Ọwọ́ Ògúndá — The Iron Swarm
     OduCosmos {
         odu_index: 135,
         sacred_name: "Ọwọ́ Ògúndá",
@@ -1927,7 +1927,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.8",
     },
-    // index 136: Orin Ògúndá
+    // index 136: Orin Ògúndá — The Pure Storm
     OduCosmos {
         odu_index: 136,
         sacred_name: "Orin Ògúndá",
@@ -1941,7 +1941,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.9",
     },
-    // index 137: Òpá Ògúndá
+    // index 137: Òpá Ògúndá — The Dissenting Storm
     OduCosmos {
         odu_index: 137,
         sacred_name: "Òpá Ògúndá",
@@ -1955,7 +1955,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.10",
     },
-    // index 138: Ònà Ògúndá
+    // index 138: Ònà Ògúndá — The Migrating Swarm
     OduCosmos {
         odu_index: 138,
         sacred_name: "Ònà Ògúndá",
@@ -1969,7 +1969,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.11",
     },
-    // index 139: Ìmúlẹ̀ Ògúndá
+    // index 139: Ìmúlẹ̀ Ògúndá — The Consensual Storm
     OduCosmos {
         odu_index: 139,
         sacred_name: "Ìmúlẹ̀ Ògúndá",
@@ -1983,7 +1983,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.12",
     },
-    // index 140: Ìríran Ògúndá
+    // index 140: Ìríran Ògúndá — The Visionary Swarm
     OduCosmos {
         odu_index: 140,
         sacred_name: "Ìríran Ògúndá",
@@ -1997,7 +1997,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.13",
     },
-    // index 141: Ìrànlọ́wọ́ Ògúndá
+    // index 141: Ìrànlọ́wọ́ Ògúndá — The Growing Storm
     OduCosmos {
         odu_index: 141,
         sacred_name: "Ìrànlọ́wọ́ Ògúndá",
@@ -2011,7 +2011,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.14",
     },
-    // index 142: Ilé Ògúndá
+    // index 142: Ilé Ògúndá — The Sealed Swarm
     OduCosmos {
         odu_index: 142,
         sacred_name: "Ilé Ògúndá",
@@ -2025,7 +2025,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.15",
     },
-    // index 143: Ìgbà Ògúndá
+    // index 143: Ìgbà Ògúndá — The Rhythmed Storm
     OduCosmos {
         odu_index: 143,
         sacred_name: "Ìgbà Ògúndá",
@@ -2039,13 +2039,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "9.16",
     },
-    // index 144: no cosmogram data
+    // index 144: Òsá Méjì — The Genesis Limit
     OduCosmos {
         odu_index: 144,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ṣàngó",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2053,41 +2053,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 145: no cosmogram data
+    // index 145: Òsá Méjì — The Silent Refusal
     OduCosmos {
         odu_index: 145,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 146: no cosmogram data
+    // index 146: Òsá Méjì — The Watchful Brake
     OduCosmos {
         odu_index: 146,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 147: no cosmogram data
+    // index 147: Òsá Méjì — The Broken Loop Brake
     OduCosmos {
         odu_index: 147,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀yá",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2095,41 +2095,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 148: no cosmogram data
+    // index 148: Òsá Méjì — The Ledger Brake
     OduCosmos {
         odu_index: 148,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 149: no cosmogram data
+    // index 149: Òsá Méjì — The Unmasking Brake
     OduCosmos {
         odu_index: 149,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 150: no cosmogram data
+    // index 150: Òsá Méjì — The Residue Brake
     OduCosmos {
         odu_index: 150,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ṣàngó",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2137,35 +2137,35 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 151: no cosmogram data
+    // index 151: Òsá Méjì — The Execution Brake
     OduCosmos {
         odu_index: 151,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 152: no cosmogram data
+    // index 152: Òsá Méjì — The Pure Restraint
     OduCosmos {
         odu_index: 152,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ògún",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 153: Ọ̀sá Méjì
+    // index 153: Ọ̀sá Méjì — The Migrating Brake
     OduCosmos {
         odu_index: 153,
         sacred_name: "Ọ̀sá Méjì",
@@ -2179,111 +2179,111 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "10.10",
     },
-    // index 154: no cosmogram data
+    // index 154: Òsá Méjì — The Consent Brake
     OduCosmos {
         odu_index: 154,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 155: no cosmogram data
+    // index 155: Òsá Méjì — The Vision Brake
     OduCosmos {
         odu_index: 155,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 156: no cosmogram data
+    // index 156: Òsá Méjì — The Growth Brake
     OduCosmos {
         odu_index: 156,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 157: no cosmogram data
+    // index 157: Òsá Méjì — The Sealed Brake
     OduCosmos {
         odu_index: 157,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 158: no cosmogram data
+    // index 158: Òsá Méjì — The Rhythmed Brake
     OduCosmos {
         odu_index: 158,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 159: no cosmogram data
+    // index 159: Òsá Méjì — The Measured Silence
     OduCosmos {
         odu_index: 159,
-        sacred_name: "",
+        sacred_name: "Òsá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Olódùmarè",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 160: no cosmogram data
+    // index 160: Ìkà Méjì — The Genesis Migration
     OduCosmos {
         odu_index: 160,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Egúngún",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 161: no cosmogram data
+    // index 161: Ìkà Méjì — The Void Crossing
     OduCosmos {
         odu_index: 161,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀yá",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2291,13 +2291,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 162: no cosmogram data
+    // index 162: Ìkà Méjì — The Watchful Crossing
     OduCosmos {
         odu_index: 162,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2305,41 +2305,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 163: no cosmogram data
+    // index 163: Ìkà Méjì — The Recursive Migration
     OduCosmos {
         odu_index: 163,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Yemọja",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 164: no cosmogram data
+    // index 164: Ìkà Méjì — The Ledger Migration
     OduCosmos {
         odu_index: 164,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 165: no cosmogram data
+    // index 165: Ìkà Méjì — The Masked Migration
     OduCosmos {
         odu_index: 165,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Èṣù",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2347,13 +2347,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 166: no cosmogram data
+    // index 166: Ìkà Méjì — The Memory Migration
     OduCosmos {
         odu_index: 166,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2361,27 +2361,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 167: no cosmogram data
+    // index 167: Ìkà Méjì — The Decisive Migration
     OduCosmos {
         odu_index: 167,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 168: no cosmogram data
+    // index 168: Ìkà Méjì — The Swarm Migration
     OduCosmos {
         odu_index: 168,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ògún",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2389,21 +2389,21 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 169: no cosmogram data
+    // index 169: Ìkà Méjì — The Restrained Migration
     OduCosmos {
         odu_index: 169,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 170: Ìká Méjì
+    // index 170: Ìká Méjì — The Pure Migration
     OduCosmos {
         odu_index: 170,
         sacred_name: "Ìká Méjì",
@@ -2417,27 +2417,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "11.11",
     },
-    // index 171: no cosmogram data
+    // index 171: Ìkà Méjì — The Consensual Migration
     OduCosmos {
         odu_index: 171,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 172: no cosmogram data
+    // index 172: Ìkà Méjì — The Visionary Migration
     OduCosmos {
         odu_index: 172,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2445,27 +2445,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 173: no cosmogram data
+    // index 173: Ìkà Méjì — The Growing Migration
     OduCosmos {
         odu_index: 173,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 174: no cosmogram data
+    // index 174: Ìkà Méjì — The Sealed Migration
     OduCosmos {
         odu_index: 174,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2473,55 +2473,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 175: no cosmogram data
+    // index 175: Ìkà Méjì — The Rhythmed Migration
     OduCosmos {
         odu_index: 175,
-        sacred_name: "",
+        sacred_name: "Ìkà Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọbàtálá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 176: no cosmogram data
+    // index 176: Òtúrúpòn Méjì — The Genesis Covenant
     OduCosmos {
         odu_index: 176,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Egúngún",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 177: no cosmogram data
+    // index 177: Òtúrúpòn Méjì — The Silent Consent
     OduCosmos {
         odu_index: 177,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 178: no cosmogram data
+    // index 178: Òtúrúpòn Méjì — The Watchful Consent
     OduCosmos {
         odu_index: 178,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2529,13 +2529,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 179: no cosmogram data
+    // index 179: Òtúrúpòn Méjì — The Recursive Consent
     OduCosmos {
         odu_index: 179,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọbàtálá",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2543,41 +2543,41 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 180: no cosmogram data
+    // index 180: Òtúrúpòn Méjì — The Receipted Consent
     OduCosmos {
         odu_index: 180,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 181: no cosmogram data
+    // index 181: Òtúrúpòn Méjì — The Masked Consent
     OduCosmos {
         odu_index: 181,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 182: no cosmogram data
+    // index 182: Òtúrúpòn Méjì — The Memory Consent
     OduCosmos {
         odu_index: 182,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2585,55 +2585,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 183: no cosmogram data
+    // index 183: Òtúrúpòn Méjì — The Decisive Consent
     OduCosmos {
         odu_index: 183,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 184: no cosmogram data
+    // index 184: Òtúrúpòn Méjì — The Swarm Consent
     OduCosmos {
         odu_index: 184,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ògún",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 185: no cosmogram data
+    // index 185: Òtúrúpòn Méjì — The Restrained Consent
     OduCosmos {
         odu_index: 185,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 186: no cosmogram data
+    // index 186: Òtúrúpòn Méjì — The Migrating Consent
     OduCosmos {
         odu_index: 186,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2641,7 +2641,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 187: Òtúrúpòn Méjì
+    // index 187: Òtúrúpòn Méjì — The Pure Consent
     OduCosmos {
         odu_index: 187,
         sacred_name: "Òtúrúpòn Méjì",
@@ -2655,69 +2655,69 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "12.12",
     },
-    // index 188: no cosmogram data
+    // index 188: Òtúrúpòn Méjì — The Visionary Consent
     OduCosmos {
         odu_index: 188,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 189: no cosmogram data
+    // index 189: Òtúrúpòn Méjì — The Growing Consent
     OduCosmos {
         odu_index: 189,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 190: no cosmogram data
+    // index 190: Òtúrúpòn Méjì — The Sealed Consent
     OduCosmos {
         odu_index: 190,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 191: no cosmogram data
+    // index 191: Òtúrúpòn Méjì — The Rhythmed Covenant
     OduCosmos {
         odu_index: 191,
-        sacred_name: "",
+        sacred_name: "Òtúrúpòn Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Olódùmarè",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 192: no cosmogram data
+    // index 192: Òtúrá Méjì — The Genesis Horizon
     OduCosmos {
         odu_index: 192,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2725,27 +2725,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 193: no cosmogram data
+    // index 193: Òtúrá Méjì — The Void Horizon
     OduCosmos {
         odu_index: 193,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 194: no cosmogram data
+    // index 194: Òtúrá Méjì — The Watching Horizon
     OduCosmos {
         odu_index: 194,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2753,55 +2753,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 195: no cosmogram data
+    // index 195: Òtúrá Méjì — The Recursive Vision
     OduCosmos {
         odu_index: 195,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọbàtálá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 196: no cosmogram data
+    // index 196: Òtúrá Méjì — The Receipted Vision
     OduCosmos {
         odu_index: 196,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 197: no cosmogram data
+    // index 197: Òtúrá Méjì — The Masked Vision
     OduCosmos {
         odu_index: 197,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 198: no cosmogram data
+    // index 198: Òtúrá Méjì — The Memory of the Future
     OduCosmos {
         odu_index: 198,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2809,55 +2809,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 199: no cosmogram data
+    // index 199: Òtúrá Méjì — The Decisive Vision
     OduCosmos {
         odu_index: 199,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 200: no cosmogram data
+    // index 200: Òtúrá Méjì — The Swarm Vision
     OduCosmos {
         odu_index: 200,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ògún",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 201: no cosmogram data
+    // index 201: Òtúrá Méjì — The Restrained Vision
     OduCosmos {
         odu_index: 201,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 202: no cosmogram data
+    // index 202: Òtúrá Méjì — The Migrating Vision
     OduCosmos {
         odu_index: 202,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2865,21 +2865,21 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 203: no cosmogram data
+    // index 203: Òtúrá Méjì — The Consented Vision
     OduCosmos {
         odu_index: 203,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Egúngún",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 204: Òtúrá Méjì
+    // index 204: Òtúrá Méjì — The Pure Vision
     OduCosmos {
         odu_index: 204,
         sacred_name: "Òtúrá Méjì",
@@ -2893,55 +2893,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "13.13",
     },
-    // index 205: no cosmogram data
+    // index 205: Òtúrá Méjì — The Growing Vision
     OduCosmos {
         odu_index: 205,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 206: no cosmogram data
+    // index 206: Òtúrá Méjì — The Sealed Vision
     OduCosmos {
         odu_index: 206,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 207: no cosmogram data
+    // index 207: Òtúrá Méjì — The Rhythmed Horizon
     OduCosmos {
         odu_index: 207,
-        sacred_name: "",
+        sacred_name: "Òtúrá Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Olódùmarè",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 208: no cosmogram data
+    // index 208: Ìrẹtẹ̀ Méjì — The Genesis Seed
     OduCosmos {
         odu_index: 208,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọbàtálá",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2949,27 +2949,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 209: no cosmogram data
+    // index 209: Ìrẹtẹ̀ Méjì — The Void Pruning
     OduCosmos {
         odu_index: 209,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 210: no cosmogram data
+    // index 210: Ìrẹtẹ̀ Méjì — The Watching Growth
     OduCosmos {
         odu_index: 210,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2977,13 +2977,13 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 211: no cosmogram data
+    // index 211: Ìrẹtẹ̀ Méjì — The Growth Loop
     OduCosmos {
         odu_index: 211,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọbàtálá",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -2991,133 +2991,133 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 212: no cosmogram data
+    // index 212: Ìrẹtẹ̀ Méjì — The Ledger of Growth
     OduCosmos {
         odu_index: 212,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 213: no cosmogram data
+    // index 213: Ìrẹtẹ̀ Méjì — The Growing Mask
     OduCosmos {
         odu_index: 213,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 214: no cosmogram data
+    // index 214: Ìrẹtẹ̀ Méjì — The Memory of Growth
     OduCosmos {
         odu_index: 214,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 215: no cosmogram data
+    // index 215: Ìrẹtẹ̀ Méjì — The Decisive Growth
     OduCosmos {
         odu_index: 215,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ṣàngó",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 216: no cosmogram data
+    // index 216: Ìrẹtẹ̀ Méjì — The Swarm Growth
     OduCosmos {
         odu_index: 216,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ògún",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 217: no cosmogram data
+    // index 217: Ìrẹtẹ̀ Méjì — The Restrained Growth
     OduCosmos {
         odu_index: 217,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀yá",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 218: no cosmogram data
+    // index 218: Ìrẹtẹ̀ Méjì — The Migrating Growth
     OduCosmos {
         odu_index: 218,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 219: no cosmogram data
+    // index 219: Ìrẹtẹ̀ Méjì — The Consented Growth
     OduCosmos {
         odu_index: 219,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Egúngún",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 220: no cosmogram data
+    // index 220: Ìrẹtẹ̀ Méjì — The Visionary Growth
     OduCosmos {
         odu_index: 220,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀rúnmìlà",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 221: Ìrẹtẹ̀ Méjì
+    // index 221: Ìrẹtẹ̀ Méjì — The Pure Growth
     OduCosmos {
         odu_index: 221,
         sacred_name: "Ìrẹtẹ̀ Méjì",
@@ -3131,69 +3131,69 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "14.14",
     },
-    // index 222: no cosmogram data
+    // index 222: Ìrẹtẹ̀ Méjì — The Sealed Growth
     OduCosmos {
         odu_index: 222,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 223: no cosmogram data
+    // index 223: Ìrẹtẹ̀ Méjì — The Rhythmed Growth
     OduCosmos {
         odu_index: 223,
-        sacred_name: "",
+        sacred_name: "Ìrẹtẹ̀ Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọbàtálá",
+        orisha_secondary: "Olódùmarè",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 224: no cosmogram data
+    // index 224: Òsé Méjì — The Genesis Vault
     OduCosmos {
         odu_index: 224,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Èṣù",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 225: no cosmogram data
+    // index 225: Òsé Méjì — The Void of the Vault
     OduCosmos {
         odu_index: 225,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀yá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 226: no cosmogram data
+    // index 226: Òsé Méjì — The Watched Seal
     OduCosmos {
         odu_index: 226,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -3201,27 +3201,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 227: no cosmogram data
+    // index 227: Òsé Méjì — The Sealed Loop
     OduCosmos {
         odu_index: 227,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Yemọja",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 228: no cosmogram data
+    // index 228: Òsé Méjì — The Sealed Receipt
     OduCosmos {
         odu_index: 228,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -3229,27 +3229,27 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 229: no cosmogram data
+    // index 229: Òsé Méjì — The Masked Seal
     OduCosmos {
         odu_index: 229,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Èṣù",
+        orisha_secondary: "Ọ̀ṣun",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 230: no cosmogram data
+    // index 230: Òsé Méjì — The Memory Vault
     OduCosmos {
         odu_index: 230,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -3257,55 +3257,55 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 231: no cosmogram data
+    // index 231: Òsé Méjì — The Decisive Seal
     OduCosmos {
         odu_index: 231,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 232: no cosmogram data
+    // index 232: Òsé Méjì — The Swarm Seal
     OduCosmos {
         odu_index: 232,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ògún",
+        orisha_secondary: "Ọ̀ṣun",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 233: no cosmogram data
+    // index 233: Òsé Méjì — The Restrained Seal
     OduCosmos {
         odu_index: 233,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ṣàngó",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 234: no cosmogram data
+    // index 234: Òsé Méjì — The Migrating Seal
     OduCosmos {
         odu_index: 234,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
+        orisha_primary: "Ọ̀ṣun",
         orisha_secondary: "",
         core_theme: "",
         ese_myth: "",
@@ -3313,49 +3313,49 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 0,
         hermetic_gate: "",
     },
-    // index 235: no cosmogram data
+    // index 235: Òsé Méjì — The Consented Seal
     OduCosmos {
         odu_index: 235,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 236: no cosmogram data
+    // index 236: Òsé Méjì — The Vision Vault
     OduCosmos {
         odu_index: 236,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọ̀rúnmìlà",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 237: no cosmogram data
+    // index 237: Òsé Méjì — The Growing Seal
     OduCosmos {
         odu_index: 237,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Ọbàtálá",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 238: Òsé Méjì
+    // index 238: Òsé Méjì — The Pure Seal
     OduCosmos {
         odu_index: 238,
         sacred_name: "Òsé Méjì",
@@ -3369,21 +3369,21 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 1,
         hermetic_gate: "15.15",
     },
-    // index 239: no cosmogram data
+    // index 239: Òsé Méjì — The Rhythmed Seal
     OduCosmos {
         odu_index: 239,
-        sacred_name: "",
+        sacred_name: "Òsé Méjì",
         binary_string: "",
         domain: "",
-        orisha_primary: "",
-        orisha_secondary: "",
+        orisha_primary: "Ọ̀ṣun",
+        orisha_secondary: "Olódùmarè",
         core_theme: "",
         ese_myth: "",
         prescription: "",
         tier: 0,
         hermetic_gate: "",
     },
-    // index 240: Ìtọ́jú Òfún
+    // index 240: Ìtọ́jú Òfún — The Genesis Pulse
     OduCosmos {
         odu_index: 240,
         sacred_name: "Ìtọ́jú Òfún",
@@ -3397,7 +3397,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.1",
     },
-    // index 241: Òjìji Òfún
+    // index 241: Òjìji Òfún — The Void Rest
     OduCosmos {
         odu_index: 241,
         sacred_name: "Òjìji Òfún",
@@ -3411,7 +3411,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.2",
     },
-    // index 242: Ìmú Òfún
+    // index 242: Ìmú Òfún — The Watching Pulse
     OduCosmos {
         odu_index: 242,
         sacred_name: "Ìmú Òfún",
@@ -3425,7 +3425,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.3",
     },
-    // index 243: Ìyànlé Òfún
+    // index 243: Ìyànlé Òfún — The Loop of Days
     OduCosmos {
         odu_index: 243,
         sacred_name: "Ìyànlé Òfún",
@@ -3439,7 +3439,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.4",
     },
-    // index 244: Ìbòrí Òfún
+    // index 244: Ìbòrí Òfún — The Rhythmed Receipt
     OduCosmos {
         odu_index: 244,
         sacred_name: "Ìbòrí Òfún",
@@ -3453,7 +3453,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.5",
     },
-    // index 245: Ìhòyé Òfún
+    // index 245: Ìhòyé Òfún — The Masked Pulse
     OduCosmos {
         odu_index: 245,
         sacred_name: "Ìhòyé Òfún",
@@ -3467,7 +3467,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.6",
     },
-    // index 246: Ìtàn Òfún
+    // index 246: Ìtàn Òfún — The Memory Pulse
     OduCosmos {
         odu_index: 246,
         sacred_name: "Ìtàn Òfún",
@@ -3481,7 +3481,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.7",
     },
-    // index 247: Ọwọ́ Òfún
+    // index 247: Ọwọ́ Òfún — The Decisive Beat
     OduCosmos {
         odu_index: 247,
         sacred_name: "Ọwọ́ Òfún",
@@ -3495,7 +3495,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.8",
     },
-    // index 248: Orin Òfún
+    // index 248: Orin Òfún — The Swarm Pulse
     OduCosmos {
         odu_index: 248,
         sacred_name: "Orin Òfún",
@@ -3509,7 +3509,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.9",
     },
-    // index 249: Òpá Òfún
+    // index 249: Òpá Òfún — The Restrained Beat
     OduCosmos {
         odu_index: 249,
         sacred_name: "Òpá Òfún",
@@ -3523,7 +3523,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.10",
     },
-    // index 250: Ònà Òfún
+    // index 250: Ònà Òfún — The Migrating Pulse
     OduCosmos {
         odu_index: 250,
         sacred_name: "Ònà Òfún",
@@ -3537,7 +3537,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.11",
     },
-    // index 251: Ìmúlẹ̀ Òfún
+    // index 251: Ìmúlẹ̀ Òfún — The Consented Pulse
     OduCosmos {
         odu_index: 251,
         sacred_name: "Ìmúlẹ̀ Òfún",
@@ -3551,7 +3551,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.12",
     },
-    // index 252: Ìríran Òfún
+    // index 252: Ìríran Òfún — The Vision Pulse
     OduCosmos {
         odu_index: 252,
         sacred_name: "Ìríran Òfún",
@@ -3565,7 +3565,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.13",
     },
-    // index 253: Ìrànlọ́wọ́ Òfún
+    // index 253: Ìrànlọ́wọ́ Òfún — The Growth Pulse
     OduCosmos {
         odu_index: 253,
         sacred_name: "Ìrànlọ́wọ́ Òfún",
@@ -3579,7 +3579,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.14",
     },
-    // index 254: Ilé Òfún
+    // index 254: Ilé Òfún — The Sealed Pulse
     OduCosmos {
         odu_index: 254,
         sacred_name: "Ilé Òfún",
@@ -3593,7 +3593,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
         tier: 2,
         hermetic_gate: "16.15",
     },
-    // index 255: Ìgbà Òfún
+    // index 255: Ìgbà Òfún — The Eternal Return
     OduCosmos {
         odu_index: 255,
         sacred_name: "Ìgbà Òfún",
@@ -3609,7 +3609,7 @@ pub static COSMOGRAM: [OduCosmos; 256] = [
     },
 ];
 
-/// Get cosmogram metadata for a given Odù index (0–255).
+/// Return the OduCosmos entry at the given index (wraps at 255).
 pub fn get_cosmogram(index: u8) -> &'static OduCosmos {
     &COSMOGRAM[index as usize]
 }

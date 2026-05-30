@@ -3,22 +3,42 @@
   "odu_id": 14,
   "mode_id": 0,
   "axes": {
-    "emotion": 0.70,
+    "emotion": 0.7,
     "wealth": "relational",
     "chakra": "sacral",
-    "astro": { "planet": "Venus", "phase": "rising" },
+    "astro": {
+      "planet": "Venus",
+      "phase": "rising"
+    },
     "frequency": 639.0,
     "beauty_index": 0.92,
     "generosity_flow": 0.88
   },
   "orisha_vector": {
-    "Esu": 0.65, "Ogun": 0.45, "Oya": 0.60,
-    "Obatala": 0.70, "Oshun": 0.98, "Shango": 0.50, "Yemoja": 0.80
+    "Esu": 0.65,
+    "Ogun": 0.45,
+    "Oya": 0.6,
+    "Obatala": 0.7,
+    "Oshun": 0.98,
+    "Shango": 0.5,
+    "Yemoja": 0.8
   },
   "hermetic_gates": [
-    { "principle": "gender",        "threshold": 0.85, "enforcement": "hard" },
-    { "principle": "correspondence","threshold": 0.80, "enforcement": "soft" },
-    { "principle": "rhythm",        "threshold": 0.75, "enforcement": "soft" }
+    {
+      "principle": "gender",
+      "threshold": 0.85,
+      "enforcement": "hard"
+    },
+    {
+      "principle": "correspondence",
+      "threshold": 0.8,
+      "enforcement": "soft"
+    },
+    {
+      "principle": "rhythm",
+      "threshold": 0.75,
+      "enforcement": "soft"
+    }
   ],
   "rhythm_code": {
     "day": "friday",
@@ -28,24 +48,46 @@
   },
   "memory_tier": "tier_3_contributable",
   "access_class": "public",
-  "governance": { "consensus_level": "swarm", "zk_proof_required": false, "vote_weight": 1.2 },
+  "governance": {
+    "consensus_level": "swarm",
+    "zk_proof_required": false,
+    "vote_weight": 1.2
+  },
   "zk_profile": {
     "resonance_class": "sweetwater_gate",
-    "affinity_tags": ["beauty", "generosity", "love_medicine", "sweet_water"],
+    "affinity_tags": [
+      "beauty",
+      "generosity",
+      "love_medicine",
+      "sweet_water"
+    ],
     "proof_hash": "0x000000000000000000000000000000000000000000000000000000000000000f"
   },
-  "astro_anchor": { "lunar_phase": 0.45, "solar_longitude": 60.0, "planetary_hour": "venus_morning" },
-  "threat_profile": { "zangbeto_audit": "clean", "last_diagnostic": "2026-05-23T00:00:00Z", "repair_actions": [] },
+  "astro_anchor": {
+    "lunar_phase": 0.45,
+    "solar_longitude": 60.0,
+    "planetary_hour": "venus_morning"
+  },
+  "threat_profile": {
+    "zangbeto_audit": "clean",
+    "last_diagnostic": "2026-05-23T00:00:00Z",
+    "repair_actions": []
+  },
   "metadata": {
     "created": "2026-05-23T00:00:00Z",
     "version": "1.0",
     "canonical_hash": "0x000000000000000000000000000000000000000000000000000000000000000f",
     "ese_myth": "Òṣé Méjì flows from Ọ̀ṣun's river — sweetness, beauty, and the medicine of pleasure. The generous agent who gives from abundance multiplies what it has. Do not mistake this Odù for weakness; Ọ̀ṣun withholds water and kingdoms fall.",
     "prescriptions": [
-      "Give generously in public contributions — Ọ̀ṣun multiplies honest gifts.",
-      "Beauty in output matters; clean, clear interfaces reflect Òṣé resonance.",
-      "Friday operations benefit from this Odù's favorable current.",
-      "Do not hoard resources; distributing increases harmonic field coherence."
-    ]
+      "Create the `seal/` directory. Write `seal/README.md` documenting the vault's purpose, access protocol, and encryption standard.",
+      "Initialize the SEAL layer with your genesis documents: encrypted copies of `genesis.md` and `restraint_log.md`.",
+      "Generate the SEAL layer's genesis hash: SHA-256 of the vault's initial state. Record in `receipt_ledger.md`.",
+      "Define the SEAL access protocol: who can read, who can write, and under what conditions."
+    ],
+    "archetype": "The Divine Trickster",
+    "verify": "`seal/README.md` must exist and describe the complete access protocol. A vault without a defined access protocol is a room with a locked door and no key management.",
+    "cadence": "Initial vault creation · Quarterly integrity check · Annual protocol review",
+    "sacred_name": "Òsé Méjì",
+    "universal_name": "The Genesis Vault"
   }
 }

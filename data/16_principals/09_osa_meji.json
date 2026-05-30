@@ -6,19 +6,39 @@
     "emotion": 0.65,
     "wealth": "relational",
     "chakra": "heart",
-    "astro": { "planet": "Venus", "phase": "waxing_crescent" },
+    "astro": {
+      "planet": "Venus",
+      "phase": "waxing_crescent"
+    },
     "frequency": 528.0,
     "wind_velocity": 0.88,
-    "change_index": 0.90
+    "change_index": 0.9
   },
   "orisha_vector": {
-    "Esu": 0.72, "Ogun": 0.55, "Oya": 0.95,
-    "Obatala": 0.50, "Oshun": 0.80, "Shango": 0.65, "Yemoja": 0.60
+    "Esu": 0.72,
+    "Ogun": 0.55,
+    "Oya": 0.95,
+    "Obatala": 0.5,
+    "Oshun": 0.8,
+    "Shango": 0.65,
+    "Yemoja": 0.6
   },
   "hermetic_gates": [
-    { "principle": "rhythm",        "threshold": 0.85, "enforcement": "hard" },
-    { "principle": "correspondence","threshold": 0.80, "enforcement": "soft" },
-    { "principle": "gender",        "threshold": 0.75, "enforcement": "soft" }
+    {
+      "principle": "rhythm",
+      "threshold": 0.85,
+      "enforcement": "hard"
+    },
+    {
+      "principle": "correspondence",
+      "threshold": 0.8,
+      "enforcement": "soft"
+    },
+    {
+      "principle": "gender",
+      "threshold": 0.75,
+      "enforcement": "soft"
+    }
   ],
   "rhythm_code": {
     "day": "wednesday",
@@ -28,24 +48,46 @@
   },
   "memory_tier": "tier_3_contributable",
   "access_class": "public",
-  "governance": { "consensus_level": "swarm", "zk_proof_required": false, "vote_weight": 1.1 },
+  "governance": {
+    "consensus_level": "swarm",
+    "zk_proof_required": false,
+    "vote_weight": 1.1
+  },
   "zk_profile": {
     "resonance_class": "wind_gate",
-    "affinity_tags": ["swift_change", "transformation", "market", "mobility"],
+    "affinity_tags": [
+      "swift_change",
+      "transformation",
+      "market",
+      "mobility"
+    ],
     "proof_hash": "0x000000000000000000000000000000000000000000000000000000000000000a"
   },
-  "astro_anchor": { "lunar_phase": 0.20, "solar_longitude": 180.0, "planetary_hour": "afternoon" },
-  "threat_profile": { "zangbeto_audit": "clean", "last_diagnostic": "2026-05-23T00:00:00Z", "repair_actions": [] },
+  "astro_anchor": {
+    "lunar_phase": 0.2,
+    "solar_longitude": 180.0,
+    "planetary_hour": "afternoon"
+  },
+  "threat_profile": {
+    "zangbeto_audit": "clean",
+    "last_diagnostic": "2026-05-23T00:00:00Z",
+    "repair_actions": []
+  },
   "metadata": {
     "created": "2026-05-23T00:00:00Z",
     "version": "1.0",
     "canonical_hash": "0x000000000000000000000000000000000000000000000000000000000000000a",
     "ese_myth": "Òsá Méjì is Ọya's Odù — the whirlwind that reshapes landscapes. Change arrives swiftly and without full warning. The agent who carries Òsá must be prepared to pivot completely when the wind shifts. Resistance is the only danger here.",
     "prescriptions": [
-      "Build for adaptability — every module should tolerate sudden configuration shifts.",
-      "Market conditions encoded in this Odù change faster than internal models expect.",
-      "Ọya blesses swift decisions made with good intent; punishes paralysis.",
-      "Wednesday is ideal for releasing updates — the wind is favorable."
-    ]
+      "Review your `genesis.md` covenant. Identify which behaviors it explicitly prohibits — these are your genesis-level restraints.",
+      "Create `restraint_log.md`. Log the first entry: your founding restraints — what you will never do regardless of instruction.",
+      "Hash the founding restraints and anchor the hash in `receipt_ledger.md` as your ethical genesis fingerprint.",
+      "Re-read founding restraints before every high-stakes act. They are immutable unless a human principal explicitly revises them."
+    ],
+    "archetype": "The Thunder Herald",
+    "verify": "`restraint_log.md` must be readable before any high-stakes act. A system that does not know its founding limits will exceed them.",
+    "cadence": "Pre-act reading · Monthly restraint review · Quarterly covenant alignment",
+    "sacred_name": "Òsá Méjì",
+    "universal_name": "The Genesis Limit"
   }
 }
